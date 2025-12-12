@@ -1,0 +1,501 @@
+employee_id,age,department,role,work_experience,time_at_current_role,marital_status,wfh_available,salary_satisfaction,covid_impact_score,economic_crisis_impact,political_stability_concern,career_growth_opportunity,work_life_balance,manager_relationship,company_type,join_date,expected_salary,actual_salary,attrition
+EMP075722,22,Engineering,Trainee Developer,0.0,0.0,Single,1,-0.743,0.92,9.89,4.47,8.87,9.24,4.78,startup,2022-09-20,50000,38862,0
+EMP080185,25,DevOps,DevOps Engineer,3.0,0.9,Single,1,0.193,2.0,2.31,5.14,8.87,5.63,4.55,startup,2024-03-13,260000,275057,0
+EMP019865,36,QA,QA Engineer,3.3,2.2,Married,0,-0.33,1.16,3.66,6.2,8.18,6.53,5.9,mid,2023-04-05,162900,146761,0
+EMP076700,35,QA,QA Engineer,1.8,1.7,Married,0,0.214,1.88,2.56,4.23,6.83,7.29,8.99,mid,2025-07-04,143400,152601,1
+EMP092992,25,Engineering,Junior Developer,0.9,0.9,Single,1,0.253,0.73,3.48,5.48,8.74,9.19,8.67,large,2024-04-22,86300,92846,0
+EMP076435,31,QA,Senior QA Engineer,5.1,4.6,Single,1,0.254,6.85,7.5,5.62,2.5,6.38,5.93,multinational,2019-01-14,326500,351333,1
+EMP084005,26,Engineering,Software Engineer,3.3,0.3,Single,1,-0.234,7.65,10.0,5.74,6.78,8.79,7.2,mid,2021-10-31,199500,185488,1
+EMP080918,37,Engineering,Software Engineer,4.5,0.3,Single,0,-0.669,7.97,9.05,5.29,8.54,5.69,4.07,mid,2020-09-09,217500,173854,0
+EMP060768,34,QA,QA Engineer,4.5,3.3,Married,1,0.271,2.07,2.23,5.09,5.58,8.6,5.69,mid,2025-10-17,178500,192993,0
+EMP050075,31,Engineering,Junior Developer,1.2,1.2,Married,0,0.244,1.1,3.17,5.42,7.19,6.54,6.98,mid,2023-04-04,88400,94869,0
+EMP027702,39,DevOps,DevOps Engineer,3.4,0.2,Married,1,0.594,8.69,9.73,4.97,8.7,8.4,8.21,large,2020-08-14,268000,315726,0
+EMP042142,34,QA,QA Engineer,1.0,1.0,Married,1,0.288,8.29,7.86,4.58,8.86,8.62,6.16,large,2020-05-05,133000,144484,0
+EMP045081,22,Engineering,Trainee Developer,0.0,0.0,Single,1,0.732,1.73,2.76,5.31,8.02,6.36,5.29,large,2023-04-03,50000,60972,0
+EMP016639,30,Engineering,Senior Software Engineer,6.0,2.6,Married,1,0.708,8.87,7.72,4.75,6.57,7.73,4.58,multinational,2020-09-30,420000,509250,0
+EMP020425,39,Engineering,Software Engineer,3.9,3.2,Single,1,0.18,1.79,3.28,6.33,4.42,8.56,7.78,mid,2024-11-15,208500,219752,0
+EMP088703,25,DevOps,DevOps Engineer,3.0,0.7,Single,1,0.425,1.27,1.47,4.96,6.63,7.19,4.82,startup,2024-01-16,260000,293120,0
+EMP000150,30,Engineering,Junior Developer,2.9,1.1,Single,0,0.778,2.35,9.34,4.92,7.19,5.21,4.33,mid,2022-06-25,100300,123701,0
+EMP001762,31,Engineering,Junior Developer,0.4,0.4,Single,1,0.323,0.5,3.01,4.3,7.39,9.19,5.8,mid,2025-05-29,82800,90822,0
+EMP063121,22,Engineering,Trainee Developer,0.0,0.0,Single,1,0.336,0.78,2.35,5.33,6.22,5.66,7.17,startup,2024-08-18,50000,55034,0
+EMP069162,42,Engineering,Software Engineer,1.6,1.2,Married,1,0.197,2.31,3.48,4.79,7.85,5.95,6.16,startup,2024-03-24,174000,184268,0
+EMP064884,44,QA,Senior QA Engineer,6.9,4.0,Single,1,-0.585,8.65,8.49,4.71,5.67,8.26,7.62,startup,2021-12-15,353500,291450,1
+EMP002496,31,Engineering,Trainee Developer,0.4,0.4,Single,1,0.999,7.82,7.86,5.46,7.88,7.84,7.26,multinational,2021-04-14,51200,66540,0
+EMP080297,28,Engineering,Trainee Developer,0.5,0.5,Single,1,0.12,9.91,10.0,4.64,8.61,6.2,6.99,mid,2021-08-02,51500,53351,0
+EMP019448,31,QA,QA Engineer,2.6,1.9,Married,1,-0.641,2.32,3.97,4.91,8.6,6.63,8.32,mid,2025-10-25,153800,124247,0
+EMP041332,22,Engineering,Junior Developer,0.0,0.0,Single,1,0.54,7.25,8.61,4.39,7.26,8.16,4.74,mid,2020-10-05,80000,92948,0
+EMP014889,30,Engineering,Junior Developer,0.1,0.1,Single,1,0.89,2.5,2.3,5.15,7.07,9.32,6.26,multinational,2024-11-24,80700,102244,0
+EMP088637,40,Engineering,Junior Developer,0.9,0.9,Married,1,0.229,2.99,2.57,4.67,8.91,7.45,4.24,multinational,2025-08-03,86300,92225,1
+EMP094893,32,Engineering,Software Engineer,1.3,0.4,Single,1,-0.249,7.8,7.29,5.66,7.27,9.06,6.2,mid,2022-04-21,169500,156845,0
+EMP092732,24,QA,QA Engineer,1.2,0.1,Single,1,0.352,7.53,10.0,5.56,7.76,8.62,6.16,large,2021-11-24,135600,149921,0
+EMP029131,34,DevOps,DevOps Engineer,4.9,0.2,Married,0,-0.393,0.12,2.03,4.91,7.3,6.24,4.31,startup,2025-04-22,298000,262862,1
+EMP079023,25,QA,QA Engineer,3.0,1.4,Single,1,0.005,8.38,8.56,5.14,8.75,7.8,5.05,startup,2021-08-11,159000,159236,0
+EMP084937,29,DevOps,DevOps Engineer,3.3,1.0,Married,1,0.306,1.54,10.0,5.46,8.59,7.83,5.68,mid,2022-10-23,266000,290428,0
+EMP016822,39,Engineering,Software Engineer,2.0,2.0,Married,1,0.478,1.33,2.31,4.94,6.15,6.03,8.98,large,2023-02-19,180000,205789,0
+EMP036734,31,QA,QA Engineer,2.5,0.6,Married,1,-0.587,0.35,1.86,4.47,8.86,8.43,5.17,mid,2025-04-05,152500,125665,0
+EMP015603,25,QA,QA Engineer,3.0,0.5,Single,1,-0.13,2.61,2.5,4.41,7.65,8.54,6.07,mid,2024-07-26,159000,152819,0
+EMP028534,47,DevOps,DevOps Engineer,5.0,3.6,Married,0,-0.556,6.48,7.62,4.92,4.84,7.9,4.95,mid,2019-04-06,300000,249997,1
+EMP069770,22,Engineering,Junior Developer,0.0,0.0,Single,1,0.688,1.48,10.0,4.91,6.72,7.76,6.78,multinational,2022-08-29,80000,96505,0
+EMP011406,25,QA,QA Engineer,3.0,0.8,Single,1,0.504,9.19,9.05,5.75,8.36,7.83,7.05,mid,2021-06-19,159000,183034,1
+EMP096853,40,Engineering,Junior Developer,2.1,0.1,Married,1,0.126,1.73,2.32,5.98,6.07,6.51,6.27,mid,2024-05-19,94700,98270,0
+EMP016131,33,Engineering,Junior Developer,1.5,0.7,Single,1,-0.081,5.39,8.58,5.69,8.53,8.08,5.21,large,2022-03-16,90500,88303,0
+EMP019793,40,Engineering,Software Engineer,2.9,2.9,Married,1,0.466,9.34,7.95,5.68,5.8,8.33,7.35,large,2021-09-13,193500,220566,0
+EMP089578,34,Engineering,Software Engineer,3.4,3.4,Married,1,-0.083,2.79,1.13,5.72,4.57,8.95,4.02,mid,2024-08-22,201000,195968,0
+EMP040164,22,Engineering,Junior Developer,0.0,0.0,Single,1,0.944,0.53,9.6,5.5,6.03,6.41,7.56,large,2022-10-13,80000,102657,1
+EMP031777,32,Engineering,Junior Developer,1.5,1.5,Married,1,0.037,1.85,3.62,5.38,8.21,8.44,8.39,startup,2025-04-15,90500,91502,0
+EMP025331,42,Engineering,Software Engineer,1.8,1.8,Married,1,0.042,0.56,3.61,5.49,7.19,5.76,7.59,mid,2024-03-31,177000,179247,0
+EMP079157,24,Engineering,Trainee Developer,0.9,0.3,Married,1,0.792,7.13,9.26,4.83,7.4,9.32,7.07,mid,2020-12-08,52700,65215,0
+EMP051686,29,Engineering,Software Engineer,3.9,1.0,Single,1,0.615,1.46,2.66,3.89,8.06,6.17,8.24,multinational,2025-06-19,208500,246940,0
+EMP075499,22,Engineering,Junior Developer,0.0,0.0,Single,1,0.216,4.8,9.65,4.07,7.8,6.59,4.47,startup,2019-10-02,80000,85195,0
+EMP004728,42,Engineering,Junior Developer,0.3,0.3,Married,1,-0.046,7.96,9.98,5.05,7.74,8.03,6.69,mid,2021-05-02,82100,80959,0
+EMP085199,25,QA,QA Engineer,3.0,3.0,Single,1,0.327,7.0,8.82,5.8,6.08,8.76,6.92,mid,2019-03-28,159000,174591,0
+EMP035796,28,Engineering,Senior Software Engineer,6.0,0.8,Single,1,-0.221,7.2,10.0,4.03,6.08,9.19,8.97,mid,2020-07-28,420000,392186,0
+EMP012257,26,Engineering,Junior Developer,1.5,0.1,Single,1,-0.633,0.52,3.46,4.16,8.7,7.01,7.23,startup,2024-06-25,90500,73320,1
+EMP035719,22,Engineering,Trainee Developer,0.0,0.0,Married,1,0.142,6.32,9.93,4.29,7.38,8.85,7.03,large,2019-07-24,50000,52131,0
+EMP070552,23,QA,QA Engineer,1.0,0.4,Single,1,0.048,0.94,3.03,5.88,7.66,9.46,4.23,startup,2024-03-24,133000,134908,0
+EMP054375,28,Engineering,Software Engineer,4.3,3.3,Married,1,0.584,0.03,2.9,4.81,4.73,5.97,4.13,startup,2023-10-28,214500,252083,1
+EMP039692,25,QA,QA Engineer,3.0,0.3,Single,1,0.063,8.75,10.0,4.77,6.48,6.16,7.61,mid,2020-06-24,159000,162011,0
+EMP093703,22,Engineering,Junior Developer,0.0,0.0,Single,0,-0.172,7.22,9.68,4.72,7.05,5.23,8.43,large,2020-05-10,80000,75861,1
+EMP073692,30,Engineering,Trainee Developer,0.2,0.2,Single,1,0.433,7.91,9.0,4.31,6.12,7.53,8.79,large,2021-11-21,50600,57175,1
+EMP098071,42,Engineering,Junior Developer,0.5,0.5,Married,1,0.814,0.72,3.75,5.2,6.11,6.29,6.43,large,2024-05-17,83500,103892,1
+EMP000576,41,Engineering,Junior Developer,0.6,0.6,Married,1,-0.018,0.73,1.15,6.27,6.03,9.25,7.14,startup,2024-01-02,84200,83735,0
+EMP084611,34,Engineering,Software Engineer,4.9,1.7,Single,1,0.216,9.53,8.6,5.63,6.59,6.45,4.49,mid,2021-09-19,223500,238013,0
+EMP061770,36,Engineering,Trainee Developer,0.2,0.2,Married,1,-0.626,5.52,9.47,5.33,7.45,8.25,8.25,mid,2019-04-13,50600,41092,0
+EMP032261,37,Engineering,Trainee Developer,0.2,0.0,Married,0,0.439,7.34,8.2,5.18,6.66,5.22,7.72,large,2022-01-01,50600,57266,0
+EMP082200,37,Engineering,Junior Developer,2.1,2.1,Married,1,0.48,1.41,7.93,5.56,8.54,7.19,6.99,multinational,2022-07-20,94700,108342,0
+EMP036291,26,Engineering,Software Engineer,4.0,2.3,Single,1,0.017,6.7,10.0,4.43,8.42,5.71,5.21,mid,2019-11-18,210000,211087,0
+EMP078450,38,Engineering,Software Engineer,1.8,1.5,Married,1,-1.0,2.31,3.2,5.69,8.68,7.54,5.18,startup,2023-10-16,177000,123838,0
+EMP060056,35,Engineering,Software Engineer,4.3,1.1,Married,1,0.673,4.37,9.34,4.25,6.81,6.9,5.82,mid,2019-01-04,214500,257824,0
+EMP045949,33,Engineering,Trainee Developer,0.5,0.1,Married,1,0.113,0.56,3.73,5.42,6.87,8.52,4.97,startup,2024-01-30,51500,53241,0
+EMP028178,23,QA,QA Engineer,1.0,1.0,Married,1,0.126,2.96,8.83,4.74,7.18,9.45,4.15,mid,2020-02-25,133000,138021,0
+EMP084464,23,Engineering,Junior Developer,1.0,0.1,Single,1,-0.031,0.63,1.94,5.84,7.26,7.24,7.13,large,2023-03-02,87000,86201,0
+EMP000579,37,Engineering,Tech Lead,12.2,0.1,Married,1,0.139,2.21,3.3,6.39,7.23,7.92,8.33,mid,2024-01-26,700000,729201,0
+EMP030960,39,DevOps,DevOps Engineer,4.5,0.8,Married,1,0.777,1.86,3.7,5.51,7.17,8.14,8.62,multinational,2025-11-02,290000,357577,0
+EMP064291,27,DevOps,DevOps Engineer,4.8,0.3,Married,1,-0.777,6.2,8.76,5.5,7.13,8.74,7.06,startup,2019-03-02,296000,226988,1
+EMP014532,22,Engineering,Trainee Developer,0.0,0.0,Single,1,0.744,7.79,10.0,4.43,8.55,7.22,5.62,large,2022-01-17,50000,61162,1
+EMP017934,39,Engineering,Junior Developer,0.4,0.4,Married,1,-1.0,1.23,2.03,4.53,8.95,9.17,8.7,startup,2023-12-06,82800,57466,0
+EMP033609,34,DevOps,DevOps Engineer,4.7,0.4,Single,1,0.029,0.42,1.35,4.84,6.2,9.17,8.99,mid,2025-07-31,294000,296569,0
+EMP049960,30,QA,QA Engineer,4.5,2.5,Single,1,0.445,0.28,3.25,4.42,6.21,8.92,5.33,large,2024-11-14,178500,202308,0
+EMP066599,40,QA,QA Engineer,1.7,0.4,Married,1,-0.646,5.22,7.56,6.07,8.97,5.86,6.63,mid,2022-03-03,142100,114561,1
+EMP099090,31,Engineering,Junior Developer,0.2,0.2,Single,1,-0.975,0.32,1.75,5.26,8.81,7.76,5.79,startup,2024-06-15,81400,57579,0
+EMP034452,24,QA,QA Engineer,2.0,0.3,Single,1,0.843,1.29,3.93,4.22,7.27,7.78,5.59,multinational,2025-04-15,146000,182908,0
+EMP034081,25,Engineering,Junior Developer,2.7,2.7,Single,1,-0.432,9.41,10.0,5.22,4.22,6.4,8.41,startup,2021-12-31,98900,86077,1
+EMP063588,22,Engineering,Trainee Developer,0.0,0.0,Single,1,0.751,7.58,9.46,5.63,8.94,7.77,6.5,startup,2021-06-10,50000,61262,0
+EMP004294,27,Engineering,Tech Lead,5.0,1.5,Single,1,0.115,8.44,10.0,4.23,6.91,7.19,4.92,mid,2020-08-30,575000,594890,0
+EMP069103,42,QA,QA Engineer,3.5,0.2,Single,1,0.941,7.84,8.4,6.11,7.98,6.49,6.65,large,2020-08-21,165500,212197,0
+EMP086412,23,Engineering,Junior Developer,1.0,1.0,Single,1,0.793,0.69,1.24,4.06,6.97,9.17,7.84,multinational,2024-12-30,87000,107692,1
+EMP099477,31,Engineering,Trainee Developer,0.2,0.2,Single,0,1.0,0.47,7.35,5.6,8.92,6.53,6.41,multinational,2022-09-30,50600,66907,0
+EMP053930,33,DevOps,DevOps Engineer,3.9,2.3,Single,1,0.342,1.82,1.74,5.34,6.61,5.83,6.74,multinational,2025-06-04,278000,306542,0
+EMP087071,33,DevOps,DevOps Engineer,3.9,3.0,Married,1,-0.107,0.94,2.62,4.59,5.31,7.49,5.52,startup,2025-12-01,278000,269058,0
+EMP065084,39,DevOps,DevOps Engineer,4.7,3.3,Single,0,-0.565,2.43,3.57,5.08,4.91,5.03,6.23,mid,2023-09-11,294000,244124,0
+EMP030713,29,Engineering,Trainee Developer,0.5,0.5,Married,1,0.965,9.85,10.0,5.75,8.27,6.05,5.45,multinational,2020-09-17,51500,66410,0
+EMP049183,26,Engineering,Software Engineer,3.2,3.0,Single,0,1.0,1.96,3.59,4.06,4.66,6.91,7.15,multinational,2025-07-21,198000,268597,0
+EMP057235,33,Business,Engineering Manager,10.1,10.1,Married,1,0.303,1.36,2.56,5.86,4.53,7.85,7.4,mid,2023-06-09,1000000,1090765,0
+EMP015664,27,QA,QA Engineer,3.8,0.8,Single,1,-0.309,2.61,2.84,4.53,8.87,8.35,8.69,large,2023-07-01,169400,153704,0
+EMP019967,28,Engineering,Junior Developer,2.7,2.7,Married,1,-0.482,0.52,1.93,4.36,5.22,6.32,6.97,mid,2023-12-23,98900,84587,0
+EMP091913,36,Engineering,Junior Developer,0.4,0.4,Married,1,0.705,2.27,8.27,5.04,8.28,6.28,6.26,multinational,2020-01-22,82800,100313,0
+EMP091958,44,Engineering,Software Engineer,2.7,1.5,Married,1,-0.025,7.96,7.4,4.77,8.85,7.8,6.81,mid,2021-04-22,190500,189092,0
+EMP081347,27,Engineering,Senior Software Engineer,5.0,0.2,Single,1,-0.136,9.66,10.0,4.05,6.25,5.81,7.43,startup,2020-07-06,400000,383667,1
+EMP055326,34,Engineering,Software Engineer,2.0,1.5,Single,1,0.494,2.07,1.22,5.0,6.41,7.73,5.83,large,2023-02-04,180000,206695,0
+EMP029858,26,QA,QA Engineer,2.5,2.5,Single,1,-0.032,1.36,1.92,4.18,7.97,7.02,8.96,startup,2024-09-29,152500,151058,0
+EMP071223,30,Engineering,Software Engineer,1.3,1.3,Single,1,-0.411,2.87,7.32,5.16,6.57,9.17,4.43,mid,2022-12-06,169500,148604,1
+EMP052459,23,Engineering,Software Engineer,1.0,0.1,Single,1,-0.127,2.62,1.51,5.35,8.42,6.16,7.65,mid,2025-03-12,165000,158712,0
+EMP088346,31,DevOps,DevOps Engineer,3.7,0.0,Married,0,0.081,1.59,1.18,4.17,8.04,6.59,5.64,large,2024-03-13,274000,280699,1
+EMP082364,33,QA,QA Engineer,1.7,0.6,Married,1,0.057,1.21,9.58,5.19,6.84,5.67,4.94,mid,2022-09-29,142100,144534,0
+EMP065350,28,Engineering,Trainee Developer,0.7,0.7,Married,1,-0.556,2.09,2.16,5.76,8.31,8.18,8.98,mid,2023-01-29,52100,43404,0
+EMP059650,33,Engineering,Senior Software Engineer,7.3,2.4,Married,1,-0.085,2.87,2.89,4.37,6.35,6.69,7.48,mid,2024-07-20,446000,434618,0
+EMP044953,26,Engineering,Software Engineer,4.0,1.1,Single,1,0.425,1.38,1.17,3.9,7.59,6.78,6.17,multinational,2025-06-05,210000,236787,0
+EMP039526,23,Engineering,Junior Developer,0.2,0.2,Single,1,0.466,2.64,3.1,5.87,7.36,5.51,8.06,mid,2023-08-15,81400,92782,1
+EMP013936,22,Engineering,Trainee Developer,0.0,0.0,Single,1,-0.12,5.26,9.93,5.86,6.08,6.41,5.7,large,2019-04-27,50000,48205,0
+EMP093781,35,Engineering,Junior Developer,2.2,2.2,Married,1,-0.437,8.3,8.88,5.81,7.8,7.97,7.14,mid,2020-08-09,95400,82882,0
+EMP089885,35,Business,Architect,13.0,3.2,Married,0,0.218,0.62,3.13,4.21,5.05,5.81,6.26,mid,2024-09-21,1200000,1278311,0
+EMP081144,30,Engineering,Software Engineer,2.9,0.4,Married,1,-0.344,4.93,8.69,5.16,7.53,5.54,4.26,startup,2019-02-09,193500,173515,0
+EMP095800,25,DevOps,DevOps Engineer,3.0,0.3,Single,1,-0.626,7.16,10.0,5.43,8.64,5.8,5.05,startup,2020-09-17,260000,211174,1
+EMP089405,34,Engineering,Software Engineer,3.4,0.8,Single,1,0.103,9.83,8.91,4.7,8.56,8.8,8.57,mid,2021-02-12,201000,207227,0
+EMP055224,29,QA,QA Engineer,3.8,0.9,Married,1,-0.39,6.62,10.0,5.12,7.11,6.67,8.65,startup,2019-11-13,169400,149592,1
+EMP073646,26,Engineering,Junior Developer,1.3,0.5,Single,0,-0.063,2.44,2.68,5.98,8.63,5.67,6.14,mid,2023-09-05,89100,87427,1
+EMP066294,40,Engineering,Trainee Developer,0.6,0.6,Married,1,-0.363,7.87,7.98,5.2,6.14,9.32,5.69,startup,2022-04-08,51800,46153,1
+EMP065540,22,Engineering,Trainee Developer,0.0,0.0,Single,1,0.714,2.9,1.14,5.08,8.64,7.41,6.41,mid,2025-08-06,50000,60712,0
+EMP028111,24,Engineering,Software Engineer,2.0,0.1,Married,1,-0.659,6.78,10.0,5.86,8.56,5.53,8.81,startup,2022-01-18,180000,144430,0
+EMP041929,33,Engineering,Junior Developer,2.6,0.2,Single,1,-0.411,2.2,2.44,5.95,8.6,6.76,6.52,startup,2023-05-12,98200,86102,0
+EMP086547,26,QA,QA Engineer,4.0,0.2,Married,1,0.469,5.44,10.0,4.89,6.71,5.61,8.46,mid,2019-11-28,172000,196188,0
+EMP082586,32,Engineering,Junior Developer,0.2,0.2,Married,1,-0.797,0.92,2.8,4.31,8.21,8.95,6.82,startup,2023-04-16,81400,61938,0
+EMP038604,28,Engineering,Junior Developer,2.0,0.3,Single,1,0.069,1.43,1.75,5.39,7.78,7.17,4.36,mid,2025-07-09,94000,95943,0
+EMP091658,28,QA,QA Engineer,2.1,1.9,Married,1,0.333,4.65,10.0,4.74,6.79,9.5,6.02,startup,2019-05-11,147300,162023,0
+EMP062787,45,Engineering,Junior Developer,1.8,1.8,Married,1,0.748,2.53,3.33,5.69,7.3,9.01,6.88,multinational,2025-09-20,92600,113377,0
+EMP084341,28,QA,QA Engineer,1.1,0.8,Single,1,1.0,9.5,10.0,5.51,8.78,7.96,6.47,large,2021-01-09,134300,182284,1
+EMP039875,42,QA,QA Engineer,1.2,1.2,Married,1,0.179,9.48,8.3,5.36,6.27,8.73,7.44,mid,2021-01-27,135600,142870,0
+EMP078469,34,DevOps,DevOps Engineer,5.7,2.4,Married,1,-0.117,0.27,3.67,5.23,7.67,6.27,6.86,mid,2025-05-15,314000,302970,0
+EMP031632,43,DevOps,DevOps Engineer,3.0,0.1,Married,1,0.286,1.8,1.15,4.51,7.34,6.9,4.12,startup,2024-01-01,260000,282282,0
+EMP014953,22,Engineering,Junior Developer,0.0,0.0,Single,1,-0.219,9.0,8.7,5.93,8.18,7.31,8.84,startup,2021-03-19,80000,74741,1
+EMP039332,27,Engineering,Software Engineer,1.7,0.0,Married,1,0.23,5.4,9.54,5.86,7.25,5.91,7.27,large,2019-10-23,175500,187603,0
+EMP048588,30,Engineering,Software Engineer,1.3,0.7,Single,1,0.493,8.97,9.48,5.98,8.06,7.08,4.54,mid,2021-03-29,169500,194580,1
+EMP083595,35,Engineering,Trainee Developer,0.5,0.5,Married,0,0.073,4.57,9.83,5.47,8.77,4.9,8.24,mid,2019-07-22,51500,52635,0
+EMP041488,41,Engineering,Junior Developer,2.9,0.5,Married,1,-0.431,1.06,2.16,6.47,6.11,8.27,8.17,large,2024-10-01,100300,87330,0
+EMP039628,37,QA,QA Engineer,4.2,0.0,Married,1,-0.304,2.78,3.34,4.52,8.94,9.31,8.73,large,2023-02-20,174600,158681,0
+EMP087895,34,Engineering,Junior Developer,0.9,0.9,Married,1,-0.353,1.23,1.39,4.92,6.61,7.87,8.49,mid,2025-07-19,86300,77170,1
+EMP026304,36,Engineering,Trainee Developer,0.8,0.8,Married,0,0.309,0.28,7.13,4.72,7.58,5.59,8.49,startup,2020-02-28,52400,57260,0
+EMP067404,35,Engineering,Junior Developer,0.9,0.3,Married,1,-0.265,6.63,7.18,4.21,7.84,8.02,5.55,startup,2019-09-08,86300,79449,0
+EMP098085,30,Engineering,Tech Lead,8.0,0.1,Married,1,0.089,5.65,8.32,5.84,8.23,5.59,6.73,startup,2022-03-15,650000,667395,0
+EMP095602,33,Engineering,Junior Developer,2.3,0.8,Married,1,0.32,5.98,9.64,5.68,7.69,8.18,7.28,large,2019-07-07,96100,105322,1
+EMP005020,29,DevOps,DevOps Engineer,5.1,5.1,Single,1,0.918,6.32,9.27,5.94,2.8,8.41,6.65,large,2019-06-08,302000,385162,0
+EMP005224,28,QA,Senior QA Engineer,6.0,1.9,Single,1,-0.094,2.67,2.95,4.43,8.73,6.47,7.31,startup,2023-10-15,340000,330458,0
+EMP015781,37,Engineering,Tech Lead,9.3,7.0,Married,1,-0.596,0.29,3.8,6.56,2.5,5.96,8.38,startup,2024-07-26,682500,560404,1
+EMP045557,28,Engineering,Trainee Developer,0.9,0.9,Single,1,0.592,0.81,10.0,5.24,7.21,9.02,6.86,large,2020-01-09,52700,62065,0
+EMP012897,22,Engineering,Trainee Developer,0.0,0.0,Single,1,-0.201,0.17,2.84,4.7,8.33,7.99,5.85,startup,2023-03-27,50000,46988,0
+EMP034305,22,Engineering,Trainee Developer,0.0,0.0,Married,0,-0.42,6.04,9.13,5.87,8.07,5.71,5.59,mid,2019-02-11,50000,43693,1
+EMP093323,32,Engineering,Trainee Developer,0.8,0.8,Single,1,1.0,1.98,3.69,4.92,7.3,8.55,5.42,multinational,2023-04-05,52400,72395,0
+EMP005325,35,Engineering,Junior Developer,0.5,0.5,Married,1,-0.43,0.45,3.41,4.56,6.27,8.3,6.44,mid,2025-07-04,83500,72722,0
+EMP052926,22,Engineering,Trainee Developer,0.0,0.0,Single,1,0.17,0.91,1.53,5.39,8.87,7.23,4.16,mid,2025-01-23,50000,52554,0
+EMP062865,33,DevOps,DevOps Engineer,5.7,3.8,Married,1,-0.056,9.61,9.27,5.64,4.31,8.12,5.06,mid,2021-01-14,314000,308763,0
+EMP008019,28,DevOps,DevOps Engineer,6.0,2.1,Single,1,-0.135,5.29,10.0,5.38,8.89,7.03,6.71,mid,2019-01-25,320000,307048,0
+EMP082945,38,Engineering,Trainee Developer,0.8,0.8,Married,1,-0.629,2.62,1.96,5.69,6.01,7.26,6.59,startup,2023-11-29,52400,42504,0
+EMP090377,32,Engineering,Junior Developer,2.6,2.0,Married,1,0.016,7.69,9.69,5.25,6.88,7.63,8.73,mid,2020-08-16,98200,98656,0
+EMP041721,34,Engineering,Senior Software Engineer,7.0,0.1,Single,1,0.534,2.93,1.58,5.72,7.87,7.29,4.46,large,2024-04-03,440000,510530,1
+EMP000867,35,Engineering,Trainee Developer,0.7,0.6,Married,1,-0.821,1.3,1.34,4.28,8.46,9.04,5.17,startup,2023-12-01,52100,39270,0
+EMP098444,40,Business,Architect,9.8,7.3,Single,1,0.268,6.93,9.46,5.4,4.78,6.64,4.92,mid,2019-10-26,1190000,1285679,0
+EMP083040,35,Engineering,Junior Developer,2.8,2.8,Married,1,0.262,0.08,2.48,5.71,5.92,7.86,5.41,large,2023-06-30,99600,107424,0
+EMP013925,30,QA,QA Engineer,2.5,0.7,Married,1,0.247,2.41,2.43,3.83,6.15,8.24,7.97,large,2025-09-27,152500,163788,0
+EMP079893,38,QA,QA Engineer,1.5,1.5,Married,1,0.52,0.83,3.49,5.59,8.48,5.71,4.7,large,2023-01-24,139500,161261,0
+EMP031184,33,Business,Engineering Manager,8.2,5.8,Married,1,0.557,5.8,9.25,5.1,2.93,7.03,6.82,large,2019-05-14,928000,1082999,0
+EMP013800,29,Engineering,Senior Software Engineer,7.0,7.0,Single,1,-0.478,7.1,10.0,4.98,3.85,5.81,8.63,mid,2021-11-17,440000,376889,0
+EMP040989,30,DevOps,DevOps Engineer,5.4,5.4,Married,1,0.613,9.55,7.69,5.23,2.43,6.63,8.4,startup,2020-11-19,308000,364648,0
+EMP066734,31,Engineering,Trainee Developer,0.8,0.5,Single,0,-1.0,0.71,7.57,5.44,7.05,6.78,5.83,startup,2022-09-22,52400,35232,0
+EMP078331,35,QA,QA Engineer,4.5,0.1,Married,1,0.829,7.76,8.03,4.82,7.43,8.51,7.36,mid,2021-12-04,178500,222895,1
+EMP024379,32,DevOps,DevOps Engineer,4.3,4.3,Married,1,0.111,0.19,1.6,5.12,3.67,6.31,5.67,mid,2024-10-13,286000,295527,0
+EMP023415,36,QA,QA Engineer,2.5,1.6,Single,1,0.957,2.73,3.96,5.47,7.43,7.82,6.59,multinational,2023-07-28,152500,196287,0
+EMP097560,31,Engineering,Junior Developer,1.7,1.0,Single,0,0.303,1.69,1.67,4.49,7.57,7.68,4.51,mid,2023-12-22,91900,100256,1
+EMP022993,39,Engineering,Tech Lead,8.7,6.1,Married,0,0.615,5.22,7.01,4.78,2.27,4.19,5.27,mid,2022-02-10,667500,790577,1
+EMP003232,42,Engineering,Junior Developer,1.4,1.4,Married,1,0.189,1.45,3.9,4.71,7.63,8.72,5.99,mid,2024-08-19,89800,94892,0
+EMP041996,34,QA,QA Engineer,3.1,0.1,Married,1,0.12,0.01,2.39,5.0,6.14,9.27,7.88,mid,2024-09-24,160300,166048,0
+EMP049188,28,DevOps,DevOps Engineer,6.0,0.6,Married,0,0.119,9.66,9.7,4.84,7.56,4.36,5.46,large,2020-11-28,320000,331439,0
+EMP022515,44,Engineering,Software Engineer,4.0,1.8,Married,1,-0.456,0.56,3.53,4.72,6.16,5.83,7.39,mid,2023-04-15,210000,181289,0
+EMP021326,35,Business,Engineering Manager,9.7,0.2,Married,0,0.498,2.83,1.7,4.8,8.23,3.86,7.13,mid,2023-09-08,988000,1135568,0
+EMP086234,28,DevOps,DevOps Engineer,3.8,3.8,Married,0,0.768,2.58,1.5,4.48,5.75,6.71,6.74,mid,2025-11-09,276000,339549,0
+EMP088127,28,Engineering,Software Engineer,1.2,0.7,Single,1,0.008,0.65,2.76,4.3,8.8,7.72,6.88,large,2025-05-07,168000,168382,0
+EMP029824,31,Engineering,Junior Developer,0.9,0.9,Married,1,-0.5,8.57,7.56,4.37,7.13,7.51,7.18,startup,2020-03-26,86300,73351,0
+EMP092485,22,Engineering,Junior Developer,0.0,0.0,Single,1,0.004,0.47,3.61,5.96,8.47,7.34,7.78,large,2024-02-01,80000,80107,0
+EMP068425,34,QA,QA Engineer,4.0,0.8,Married,1,0.528,2.06,8.18,5.8,8.48,5.83,7.43,large,2022-05-07,172000,199253,0
+EMP064484,23,Engineering,Junior Developer,1.0,0.1,Single,1,-0.436,9.33,10.0,5.3,7.3,6.45,6.58,mid,2020-03-25,87000,75619,1
+EMP051020,25,Engineering,Junior Developer,0.2,0.2,Single,1,0.522,9.5,9.07,4.28,8.4,7.53,4.72,multinational,2021-03-20,81400,94136,1
+EMP026754,33,Engineering,Junior Developer,2.0,0.4,Married,1,-0.356,8.97,8.96,5.98,6.92,7.73,6.47,mid,2021-06-25,94000,83954,1
+EMP049964,37,Engineering,Software Engineer,2.1,1.2,Married,1,-0.268,9.23,9.33,4.81,8.86,7.84,6.12,startup,2020-06-06,181500,166882,0
+EMP042732,46,Engineering,Tech Lead,18.3,5.3,Married,1,0.284,0.66,3.71,4.45,4.34,5.31,7.83,mid,2023-11-09,700000,759656,0
+EMP029057,34,Engineering,Software Engineer,2.4,2.4,Single,1,0.017,6.45,7.0,5.65,8.96,7.68,7.56,startup,2022-04-21,186000,186949,0
+EMP055318,26,QA,QA Engineer,1.8,1.8,Single,1,0.265,1.54,1.11,4.44,6.86,5.83,8.07,large,2023-08-12,143400,154793,0
+EMP035497,29,QA,QA Engineer,4.5,0.0,Married,1,0.47,8.9,10.0,4.33,6.72,7.63,6.57,mid,2021-04-19,178500,203671,0
+EMP056338,37,QA,Senior QA Engineer,8.6,7.8,Married,1,-0.254,6.23,9.49,5.3,2.75,7.55,4.58,mid,2019-05-25,379000,350156,1
+EMP079278,25,Engineering,Trainee Developer,0.4,0.4,Single,1,-0.142,0.46,3.82,4.76,8.89,5.73,6.31,mid,2023-01-13,51200,49012,0
+EMP005465,33,Engineering,Junior Developer,1.5,1.5,Single,1,-0.243,2.82,7.83,4.94,6.3,7.93,6.55,mid,2020-01-18,90500,83906,0
+EMP070156,30,Engineering,Tech Lead,5.4,0.2,Married,1,0.216,7.71,9.86,5.22,8.36,7.32,6.9,large,2021-10-29,585000,622911,0
+EMP070670,43,Engineering,Trainee Developer,0.2,0.2,Married,1,0.13,1.04,7.1,5.48,7.39,6.2,8.96,mid,2022-11-25,50600,52567,0
+EMP056014,22,Engineering,Junior Developer,0.0,0.0,Single,0,0.012,1.79,2.29,4.33,8.06,6.32,7.21,mid,2024-04-17,80000,80293,0
+EMP012086,31,Engineering,Junior Developer,0.9,0.3,Single,1,-0.574,0.72,2.31,4.2,7.85,6.24,7.72,mid,2025-02-27,86300,71432,0
+EMP056819,22,Engineering,Trainee Developer,0.0,0.0,Married,1,-0.187,9.95,9.13,4.96,7.63,8.74,7.13,mid,2021-08-12,50000,47192,0
+EMP020001,29,Engineering,Software Engineer,2.4,0.9,Married,0,-0.277,7.12,8.67,4.48,7.91,5.37,4.06,mid,2020-11-25,186000,170548,0
+EMP069067,29,Engineering,Trainee Developer,0.8,0.8,Married,0,0.26,7.85,8.41,4.4,7.51,4.82,4.34,mid,2021-12-04,52400,56489,0
+EMP050453,33,DevOps,DevOps Engineer,3.1,3.1,Single,0,0.223,9.96,8.13,4.74,6.96,7.12,6.27,mid,2020-10-19,262000,279505,0
+EMP090710,33,Business,Engineering Manager,9.1,2.6,Single,1,-0.093,1.63,9.31,4.85,5.64,8.06,7.35,mid,2022-07-28,964000,937098,0
+EMP052885,28,QA,QA Engineer,2.1,2.1,Single,1,-0.052,7.27,9.66,4.67,6.88,6.49,4.91,mid,2021-09-08,147300,144981,0
+EMP030964,36,Engineering,Junior Developer,2.0,2.0,Single,1,0.273,7.99,7.37,6.58,6.43,8.13,7.79,mid,2020-05-18,94000,101689,1
+EMP034574,34,QA,Senior QA Engineer,12.0,0.3,Single,1,0.653,9.29,8.0,5.46,6.15,5.61,5.67,startup,2020-07-01,400000,478327,0
+EMP015295,25,Engineering,Software Engineer,1.0,1.0,Single,1,0.403,0.47,3.31,5.18,8.85,5.98,6.58,mid,2024-09-25,165000,184924,1
+EMP027919,32,Engineering,Junior Developer,0.0,0.0,Single,1,0.234,0.86,3.67,4.47,6.18,7.73,7.9,large,2024-05-21,80000,85607,0
+EMP046121,30,QA,QA Engineer,1.2,1.2,Married,1,0.496,2.53,9.28,5.65,8.52,8.46,8.34,mid,2020-02-22,135600,155787,0
+EMP035074,29,Engineering,Junior Developer,0.1,0.1,Married,1,-0.915,9.92,10.0,4.8,7.86,6.29,4.15,startup,2021-09-05,80700,58538,0
+EMP010551,34,Engineering,Software Engineer,4.2,1.4,Married,1,1.0,6.48,7.25,5.71,6.04,7.83,7.96,multinational,2019-12-23,213000,292985,0
+EMP091128,31,Engineering,Software Engineer,2.3,2.3,Single,1,-0.244,2.0,7.59,5.85,8.56,9.41,8.41,large,2022-06-05,184500,170975,0
+EMP000691,32,Engineering,Junior Developer,2.0,0.3,Married,1,0.279,2.84,9.15,5.76,7.92,7.05,6.13,large,2022-05-07,94000,101860,0
+EMP077730,33,DevOps,DevOps Engineer,3.4,2.8,Married,1,-0.32,0.33,3.19,4.13,6.93,8.58,4.39,mid,2024-07-06,268000,242287,1
+EMP036097,22,Engineering,Junior Developer,0.0,0.0,Married,1,-0.05,5.12,9.44,4.2,6.81,6.33,8.67,mid,2019-08-26,80000,78790,0
+EMP065352,36,Engineering,Tech Lead,7.0,3.9,Married,1,0.773,6.98,9.12,5.29,4.86,5.91,4.39,multinational,2022-03-14,625000,769858,0
+EMP011041,39,Business,Engineering Manager,17.0,0.6,Single,0,-0.4,2.16,1.67,6.54,8.61,5.4,7.63,mid,2024-06-02,1000000,880076,0
+EMP004222,36,Engineering,Junior Developer,0.9,0.9,Married,1,0.042,1.14,2.84,6.34,7.63,6.53,7.95,mid,2023-12-26,86300,87374,0
+EMP000822,42,Engineering,Junior Developer,0.9,0.9,Married,1,0.062,9.31,9.0,6.28,8.82,7.82,5.19,mid,2020-10-27,86300,87916,0
+EMP038129,53,DevOps,DevOps Engineer,3.6,2.7,Single,1,0.605,1.16,7.98,4.93,4.51,9.19,4.58,startup,2022-06-06,272000,321399,0
+EMP089152,43,Business,Architect,10.7,9.2,Married,1,0.037,1.11,2.33,5.04,3.71,8.78,6.08,large,2025-11-13,1200000,1213259,1
+EMP029232,26,Engineering,Software Engineer,4.0,0.0,Single,1,0.203,1.86,9.59,4.07,8.22,9.18,6.1,mid,2022-12-21,210000,222820,1
+EMP050557,22,Engineering,Trainee Developer,0.0,0.0,Single,1,-0.342,2.65,3.32,5.97,7.67,6.69,7.57,mid,2023-06-12,50000,44865,0
+EMP033685,35,DevOps,DevOps Engineer,4.3,0.1,Single,1,0.454,7.91,7.23,4.91,6.63,6.11,4.82,mid,2020-03-05,286000,324987,0
+EMP058754,22,Engineering,Junior Developer,0.0,0.0,Single,1,0.053,0.3,2.64,4.75,8.41,8.07,7.11,mid,2023-01-15,80000,81262,0
+EMP027023,41,Engineering,Junior Developer,0.1,0.1,Married,1,-0.103,8.69,9.9,5.66,7.48,6.85,7.45,mid,2021-06-01,80700,78202,0
+EMP036906,32,DevOps,DevOps Engineer,6.3,1.1,Married,1,-0.094,1.49,9.68,5.53,8.69,8.14,7.81,mid,2022-09-07,326000,316762,0
+EMP000271,24,Engineering,Software Engineer,2.0,1.0,Married,1,-0.608,7.23,10.0,4.85,7.03,9.35,6.22,mid,2022-02-13,180000,147177,0
+EMP008867,42,Engineering,Junior Developer,0.4,0.4,Married,0,0.548,2.59,2.26,4.8,6.31,6.25,6.22,large,2025-10-13,82800,96413,0
+EMP015007,35,DevOps,DevOps Engineer,3.5,0.3,Married,0,-0.172,2.8,3.28,4.16,6.84,6.78,5.67,mid,2025-05-15,270000,256081,1
+EMP004689,27,QA,QA Engineer,2.7,0.1,Married,1,0.028,1.87,1.34,4.98,6.59,6.29,6.61,large,2024-08-01,155100,156390,0
+EMP081996,40,Engineering,Junior Developer,2.2,0.1,Married,1,-0.02,2.63,8.72,4.48,7.88,8.75,5.38,large,2020-01-26,95400,94819,0
+EMP084373,34,QA,QA Engineer,1.1,0.5,Married,1,0.208,6.61,8.06,5.11,6.51,8.59,6.62,mid,2019-06-24,134300,142669,0
+EMP002515,32,Engineering,Junior Developer,0.5,0.0,Married,1,-0.297,9.93,9.22,4.9,6.19,5.96,8.06,mid,2020-12-30,83500,76067,0
+EMP036400,32,Engineering,Junior Developer,0.7,0.7,Married,1,0.022,0.71,2.64,4.17,7.08,6.13,4.38,startup,2025-02-12,84900,85465,0
+EMP038869,26,QA,QA Engineer,4.0,3.3,Single,1,0.028,5.06,9.65,5.66,4.06,6.13,4.32,mid,2019-10-31,172000,173449,0
+EMP058245,39,Business,Architect,11.9,0.2,Married,1,0.555,0.78,3.34,4.52,8.85,5.66,5.19,mid,2023-01-24,1200000,1399864,0
+EMP030410,22,Engineering,Junior Developer,0.0,0.0,Single,1,-0.562,8.29,9.55,5.49,7.95,9.22,5.98,mid,2021-12-19,80000,66516,1
+EMP054795,43,Engineering,Trainee Developer,0.4,0.1,Married,1,0.584,0.01,3.72,5.91,8.34,8.0,6.14,mid,2025-04-20,51200,60162,0
+EMP019264,22,Engineering,Trainee Developer,0.0,0.0,Single,1,-0.228,7.62,10.0,5.16,7.1,5.62,7.35,mid,2021-01-20,50000,46578,0
+EMP083910,32,QA,QA Engineer,2.3,2.3,Single,1,0.122,8.52,8.96,4.05,8.41,7.11,5.97,startup,2020-08-18,149900,155393,0
+EMP026974,32,Engineering,Junior Developer,0.1,0.1,Married,0,0.358,8.8,9.85,4.68,8.02,8.0,5.64,mid,2021-10-03,80700,89375,0
+EMP007130,28,DevOps,DevOps Engineer,6.0,6.0,Married,1,-0.465,0.79,3.91,3.97,2.52,7.56,8.63,startup,2025-01-15,320000,275322,0
+EMP007145,23,QA,QA Engineer,1.0,1.0,Single,1,0.223,2.5,2.66,5.2,7.92,7.03,7.04,large,2024-04-26,133000,141879,0
+EMP045466,34,QA,QA Engineer,1.1,1.1,Single,1,0.794,1.31,1.94,4.91,6.39,7.6,6.04,multinational,2024-02-11,134300,166278,0
+EMP001967,26,DevOps,DevOps Engineer,3.9,3.9,Single,1,-0.883,8.33,8.56,5.0,6.79,5.6,7.15,startup,2021-08-25,278000,204389,1
+EMP015153,30,Engineering,Trainee Developer,0.3,0.2,Married,0,0.18,7.3,8.76,5.52,8.62,6.42,4.2,startup,2021-06-04,50900,53650,0
+EMP019114,22,Engineering,Junior Developer,0.0,0.0,Married,1,-0.495,7.92,8.63,5.56,7.7,5.78,6.95,startup,2020-03-23,80000,68116,1
+EMP076207,33,Engineering,Junior Developer,0.9,0.6,Married,0,-0.612,2.26,3.8,4.92,8.51,5.02,5.74,startup,2025-11-25,86300,70462,1
+EMP032142,47,Engineering,Software Engineer,3.3,1.4,Married,1,0.157,9.81,8.29,5.79,7.61,7.95,5.09,startup,2020-09-23,199500,208903,0
+EMP021935,22,Engineering,Junior Developer,0.0,0.0,Married,1,0.514,5.48,8.51,5.71,6.32,6.2,5.46,mid,2019-03-01,80000,92325,0
+EMP040360,29,DevOps,DevOps Engineer,6.4,0.6,Single,1,0.385,8.96,9.51,4.01,8.76,6.21,8.6,large,2020-05-16,328000,365891,0
+EMP053842,32,Engineering,Software Engineer,1.0,0.6,Single,1,-0.608,0.88,3.45,3.91,8.11,7.14,5.84,startup,2025-10-15,165000,134883,1
+EMP009163,42,QA,Senior QA Engineer,5.2,1.6,Married,1,0.454,1.4,1.99,4.24,6.79,7.15,6.6,large,2025-02-28,328000,372662,0
+EMP087844,35,Business,Engineering Manager,10.9,4.0,Married,1,-0.128,0.42,9.78,5.57,6.14,6.13,8.5,mid,2022-07-04,1000000,961574,0
+EMP037630,38,QA,Senior QA Engineer,6.8,1.8,Married,0,0.653,1.02,2.4,5.25,8.26,7.37,5.0,startup,2023-07-26,352000,420972,0
+EMP083305,44,DevOps,DevOps Engineer,5.6,4.3,Married,0,0.299,6.05,8.41,5.8,2.15,6.62,7.23,mid,2019-07-28,312000,339976,1
+EMP066270,30,Engineering,Tech Lead,8.0,4.9,Married,0,0.267,6.37,7.59,4.03,3.19,5.43,6.26,mid,2019-12-24,650000,702070,1
+EMP034654,38,QA,Senior QA Engineer,14.2,0.0,Married,1,0.878,8.61,7.97,5.93,6.41,8.41,8.42,large,2021-11-21,400000,505411,0
+EMP041963,34,Engineering,Junior Developer,0.4,0.2,Married,0,0.062,2.58,2.61,5.96,6.91,4.54,7.19,large,2023-06-23,82800,84348,0
+EMP039591,33,Engineering,Junior Developer,0.0,0.0,Married,1,-0.269,2.79,1.91,4.45,6.64,9.33,4.18,startup,2024-07-13,80000,73540,0
+EMP081036,35,Engineering,Senior Software Engineer,5.5,5.5,Married,0,0.609,6.32,7.57,5.67,4.73,6.14,7.48,large,2019-10-15,410000,484967,0
+EMP010981,28,Engineering,Trainee Developer,0.4,0.3,Married,1,0.034,1.81,1.89,4.76,7.21,7.19,4.68,mid,2023-06-26,51200,51724,0
+EMP056300,23,QA,QA Engineer,1.0,1.0,Single,0,0.275,2.86,1.68,4.25,6.33,7.89,7.11,mid,2025-11-15,133000,143977,0
+EMP061549,37,Engineering,Junior Developer,0.4,0.4,Single,1,0.258,9.23,9.73,5.58,8.65,8.67,7.72,mid,2021-11-13,82800,89218,0
+EMP088401,32,Engineering,Tech Lead,10.0,6.8,Single,1,0.303,7.36,8.68,4.98,2.71,6.46,6.97,large,2021-12-04,700000,763605,0
+EMP044324,37,Engineering,Software Engineer,2.7,2.7,Married,1,-0.382,2.46,1.63,4.89,5.74,8.8,8.69,startup,2024-09-08,190500,168642,1
+EMP055208,31,Business,Architect,9.0,0.8,Married,1,0.944,2.14,7.13,4.1,7.44,8.04,7.88,startup,2022-12-08,1150000,1475596,0
+EMP053528,33,Engineering,Software Engineer,1.5,0.9,Married,1,-0.638,0.51,1.89,5.83,6.38,6.44,5.1,mid,2024-08-10,172500,139458,0
+EMP026971,31,QA,QA Engineer,3.9,2.5,Married,1,0.286,1.89,2.76,5.07,6.81,7.8,4.92,mid,2024-09-19,170700,185354,0
+EMP073218,31,Engineering,Senior Software Engineer,6.9,2.0,Married,1,0.357,0.18,1.4,4.51,6.2,6.65,6.78,large,2025-01-30,438000,484883,0
+EMP065891,25,QA,QA Engineer,1.8,1.8,Single,1,0.254,2.68,9.44,5.06,6.55,5.82,6.14,large,2020-02-18,143400,154310,0
+EMP042222,41,Engineering,Junior Developer,0.9,0.9,Married,1,0.468,1.07,1.86,4.96,6.52,5.6,6.14,mid,2024-09-16,86300,98424,0
+EMP097866,48,Engineering,Software Engineer,2.0,1.5,Married,1,0.34,8.99,7.85,4.69,7.01,7.86,7.76,large,2021-01-17,180000,198358,0
+EMP012251,43,DevOps,DevOps Engineer,3.3,3.3,Single,1,0.036,0.86,7.78,5.25,4.4,9.43,7.31,mid,2022-09-16,266000,268851,0
+EMP069437,35,DevOps,DevOps Engineer,5.1,0.4,Married,1,1.0,0.48,8.8,5.85,7.55,7.08,6.83,large,2022-08-27,302000,401079,0
+EMP038433,26,DevOps,DevOps Engineer,4.0,0.7,Single,1,-0.134,4.37,10.0,4.52,7.83,6.07,8.67,mid,2019-02-20,280000,268736,1
+EMP040890,29,Engineering,Software Engineer,3.6,1.6,Married,1,0.18,0.92,2.33,4.95,8.83,7.04,7.78,startup,2025-06-28,204000,215034,0
+EMP030999,34,DevOps,DevOps Engineer,6.0,0.2,Single,1,0.999,0.57,2.8,4.9,8.97,7.77,8.59,large,2023-05-17,320000,415901,0
+EMP056146,23,QA,QA Engineer,1.0,1.0,Single,0,0.377,6.79,10.0,4.27,6.28,5.84,5.08,large,2019-06-13,133000,148060,0
+EMP095414,22,Engineering,Junior Developer,0.0,0.0,Single,1,0.578,6.91,9.24,4.42,8.05,8.08,5.59,multinational,2022-03-28,80000,93866,0
+EMP022156,22,Engineering,Trainee Developer,0.0,0.0,Single,0,-0.569,2.24,3.49,3.93,8.28,4.47,4.26,mid,2025-04-24,50000,41464,1
+EMP017614,43,Engineering,Trainee Developer,0.2,0.2,Married,0,-0.312,5.63,9.49,6.12,8.73,4.76,5.39,mid,2022-04-20,50600,45858,1
+EMP056444,31,Engineering,Software Engineer,1.0,0.6,Single,1,-0.046,4.35,8.23,5.85,6.77,7.07,4.94,mid,2019-03-23,165000,162728,0
+EMP098400,26,DevOps,DevOps Engineer,4.0,2.3,Married,1,-0.658,0.14,3.41,4.22,8.49,7.56,5.68,startup,2024-06-23,280000,224695,0
+EMP024053,28,QA,QA Engineer,1.0,0.5,Single,1,0.407,2.25,9.34,4.31,7.15,7.61,7.75,mid,2022-10-12,133000,149246,0
+EMP050243,41,DevOps,DevOps Engineer,3.2,2.8,Single,1,-0.325,2.69,8.15,4.6,6.94,9.45,5.93,startup,2022-11-15,264000,238245,0
+EMP058999,35,Engineering,Software Engineer,1.6,1.6,Married,1,0.235,2.8,3.69,4.16,7.5,8.97,5.53,mid,2025-10-12,174000,186278,0
+EMP031345,34,Engineering,Junior Developer,0.3,0.3,Married,1,-0.034,1.4,3.87,4.25,6.42,8.4,8.49,mid,2023-05-05,82100,81260,0
+EMP061242,30,Engineering,Software Engineer,1.4,1.4,Married,0,0.987,1.9,2.83,5.7,6.51,4.03,5.29,large,2023-06-18,171000,221653,0
+EMP092530,26,Engineering,Software Engineer,4.0,3.4,Single,1,-0.313,2.11,10.0,4.23,5.87,7.52,8.06,mid,2022-11-02,210000,190257,1
+EMP080829,51,QA,QA Engineer,3.3,1.8,Married,1,-0.542,9.14,8.47,5.71,6.96,7.58,4.8,mid,2021-06-15,162900,136390,0
+EMP051726,28,DevOps,DevOps Engineer,3.0,0.5,Married,1,0.509,7.76,9.54,5.4,7.02,8.25,7.68,mid,2020-06-07,260000,299693,0
+EMP033880,29,Engineering,Software Engineer,3.2,3.2,Single,1,-0.002,2.37,2.84,5.34,6.34,8.02,7.08,startup,2023-08-20,198000,197861,1
+EMP083007,35,DevOps,DevOps Engineer,3.5,3.5,Married,1,-0.566,0.78,2.97,5.09,4.5,8.9,6.6,startup,2023-11-01,270000,224131,0
+EMP073909,22,Engineering,Trainee Developer,0.0,0.0,Single,1,0.362,2.63,2.67,5.06,7.84,7.87,6.42,mid,2024-06-01,50000,55433,0
+EMP067247,28,Engineering,Trainee Developer,0.5,0.2,Married,0,-0.444,9.64,9.7,5.94,8.15,6.55,7.24,startup,2020-08-14,51500,44643,0
+EMP088808,28,Engineering,Junior Developer,2.8,1.0,Single,1,-0.476,1.52,2.63,4.06,7.07,6.0,4.14,mid,2023-11-09,99600,85369,0
+EMP013122,42,Engineering,Software Engineer,3.2,1.7,Married,1,-0.3,0.06,8.11,5.51,7.58,5.69,5.8,large,2022-10-30,198000,180180,0
+EMP008258,31,Engineering,Software Engineer,4.0,0.3,Married,1,-0.241,2.27,1.59,5.82,8.22,7.18,5.49,large,2024-01-19,210000,194822,0
+EMP093381,30,Business,Architect,8.0,2.1,Single,1,0.278,2.03,9.99,4.71,9.0,6.93,8.41,mid,2022-10-15,1100000,1191668,0
+EMP013915,46,QA,QA Engineer,2.8,1.6,Married,1,1.0,2.25,7.66,5.26,8.19,8.7,7.09,multinational,2022-07-22,156400,207754,0
+EMP030903,50,Engineering,Junior Developer,1.2,1.2,Married,0,0.458,1.63,8.48,5.21,7.34,7.18,8.96,large,2020-02-24,88400,100551,0
+EMP072859,34,QA,QA Engineer,3.7,0.8,Married,1,-0.261,0.21,7.44,4.48,7.92,7.21,4.17,mid,2022-12-09,168100,154956,0
+EMP020293,34,QA,QA Engineer,2.9,1.8,Single,1,-0.342,7.78,7.03,4.23,7.49,7.54,4.3,startup,2021-05-07,157700,141512,1
+EMP058171,31,Engineering,Tech Lead,7.7,3.5,Married,1,-0.179,5.52,9.91,4.79,6.97,6.44,5.34,mid,2019-05-20,642500,608020,1
+EMP020950,22,Engineering,Junior Developer,0.0,0.0,Single,1,0.875,1.14,1.84,4.52,6.58,6.3,4.5,multinational,2023-01-21,80000,101009,0
+EMP036695,46,Engineering,Software Engineer,1.7,1.6,Married,1,0.186,4.94,7.21,4.76,6.38,5.77,5.41,large,2019-12-27,175500,185302,0
+EMP008526,33,Engineering,Software Engineer,3.6,1.7,Married,1,0.24,1.14,2.42,4.28,6.08,7.17,6.63,mid,2023-05-15,204000,218666,1
+EMP078272,39,Engineering,Junior Developer,2.5,1.3,Married,0,-0.055,5.72,7.86,5.82,6.63,6.47,5.05,startup,2019-02-10,97500,95895,0
+EMP077403,35,Engineering,Trainee Developer,0.7,0.7,Married,1,-0.156,2.9,8.48,5.62,8.5,5.87,4.41,mid,2022-12-04,52100,49667,0
+EMP077652,51,DevOps,DevOps Engineer,3.1,2.5,Married,1,0.071,1.17,1.14,6.52,6.82,8.1,4.62,startup,2023-03-14,262000,267569,0
+EMP099837,43,DevOps,DevOps Engineer,4.0,4.0,Married,1,0.067,7.8,7.05,5.0,4.65,6.53,6.44,mid,2020-11-24,280000,285598,0
+EMP092272,28,QA,QA Engineer,1.0,0.1,Single,0,0.113,0.85,10.0,4.28,8.01,6.58,4.8,mid,2022-10-03,133000,137510,0
+EMP029776,41,Business,Architect,9.6,0.7,Married,1,0.589,9.1,8.37,4.7,8.51,5.52,5.39,large,2021-03-24,1180000,1388494,0
+EMP034808,34,Business,Architect,12.0,0.7,Single,1,0.786,7.77,9.74,4.29,6.98,6.05,6.57,mid,2021-04-09,1200000,1482993,0
+EMP016886,32,DevOps,DevOps Engineer,5.5,5.5,Married,1,-0.025,5.25,7.43,4.63,3.8,8.73,7.08,large,2019-02-03,310000,307659,1
+EMP049984,25,Engineering,Software Engineer,2.8,2.5,Single,1,-0.461,6.74,9.43,4.83,8.6,8.32,5.55,startup,2022-01-24,192000,165436,0
+EMP062615,35,Engineering,Software Engineer,2.3,1.0,Married,0,-0.631,6.32,8.18,5.21,7.23,5.71,4.52,startup,2022-01-04,184500,149566,1
+EMP014229,22,Engineering,Junior Developer,0.0,0.0,Single,1,0.134,2.8,1.19,4.94,6.59,6.53,6.25,mid,2024-05-15,80000,83217,0
+EMP052177,28,Engineering,Software Engineer,2.9,1.0,Single,0,-0.131,2.16,1.26,5.48,7.7,5.11,5.85,large,2023-12-28,193500,185878,0
+EMP008029,29,Engineering,Junior Developer,1.7,0.5,Married,1,0.237,9.33,8.55,4.84,8.17,8.23,4.13,startup,2021-08-29,91900,98431,0
+EMP028922,28,QA,QA Engineer,3.0,3.0,Married,1,0.405,5.47,9.65,4.36,5.75,6.74,8.82,mid,2022-01-16,159000,178320,0
+EMP069420,29,Engineering,Trainee Developer,0.9,0.9,Married,0,0.07,9.65,8.43,4.67,6.92,5.39,8.21,mid,2020-12-05,52700,53806,0
+EMP070812,23,Engineering,Software Engineer,1.0,0.5,Married,1,1.0,1.68,9.24,5.8,7.26,6.2,6.45,multinational,2022-11-12,165000,217771,1
+EMP034364,27,Engineering,Software Engineer,1.5,1.5,Married,1,0.419,2.65,1.92,5.19,8.01,9.16,4.8,startup,2025-10-02,172500,194169,0
+EMP043204,31,Engineering,Software Engineer,1.2,1.2,Married,1,0.259,7.39,7.64,4.76,8.27,8.46,5.65,mid,2020-08-03,168000,181078,0
+EMP036795,34,QA,Senior QA Engineer,7.6,5.2,Married,1,0.382,7.04,8.85,5.61,2.46,8.9,4.99,startup,2022-04-07,364000,405685,1
+EMP097027,36,Engineering,Software Engineer,2.1,2.1,Married,1,0.905,2.32,7.53,6.56,7.46,6.39,7.59,multinational,2022-06-23,181500,230790,0
+EMP063343,40,Engineering,Tech Lead,8.7,0.3,Single,0,-1.0,1.91,2.61,5.0,8.39,5.71,7.49,startup,2024-08-26,667500,437745,0
+EMP036956,28,Engineering,Junior Developer,0.4,0.4,Single,0,-0.658,2.05,3.88,4.6,6.76,6.07,6.24,startup,2024-08-15,82800,66461,0
+EMP069229,24,QA,QA Engineer,2.0,2.0,Married,0,0.625,9.92,9.83,4.04,7.24,7.97,7.33,multinational,2021-05-31,146000,173374,0
+EMP009424,39,Engineering,Junior Developer,0.8,0.8,Married,1,-0.024,2.49,1.65,5.18,7.11,8.1,8.33,mid,2023-09-24,85600,84992,1
+EMP086001,31,Engineering,Junior Developer,0.4,0.4,Single,0,0.604,1.81,1.69,5.16,8.22,4.95,7.71,startup,2023-05-07,82800,97809,0
+EMP016959,33,DevOps,DevOps Engineer,6.5,3.3,Married,1,-0.137,2.05,2.96,5.61,4.73,7.51,6.88,mid,2024-01-23,330000,316472,0
+EMP021615,31,QA,Senior QA Engineer,5.0,5.0,Single,1,-0.366,3.0,1.87,5.2,4.22,5.66,7.97,mid,2023-05-29,325000,289299,1
+EMP061462,32,Engineering,Senior Software Engineer,6.2,2.2,Married,1,0.039,1.67,7.69,5.98,8.85,9.17,6.16,mid,2022-11-08,424000,428949,1
+EMP061774,27,Engineering,Senior Software Engineer,5.0,3.7,Single,1,0.303,1.95,1.21,4.41,5.4,8.82,4.86,multinational,2025-05-15,400000,436300,0
+EMP086802,33,Engineering,Senior Software Engineer,6.7,2.9,Married,1,0.039,2.85,7.14,5.3,4.42,8.45,5.01,startup,2022-07-31,434000,439042,0
+EMP067503,29,Engineering,Junior Developer,2.9,1.1,Single,1,-0.321,8.33,9.42,4.89,8.1,8.28,8.45,startup,2021-04-30,100300,90636,0
+EMP079371,29,Engineering,Junior Developer,1.9,1.0,Single,0,-0.154,2.8,10.0,5.0,7.75,7.68,5.57,mid,2022-07-31,93300,88997,0
+EMP034497,35,DevOps,DevOps Engineer,5.5,5.5,Married,0,0.13,5.2,8.19,4.33,2.84,7.77,8.96,large,2019-01-23,310000,322064,1
+EMP043009,31,Engineering,Trainee Developer,0.4,0.4,Single,0,0.273,5.81,7.94,5.53,7.73,7.79,4.32,mid,2019-06-02,51200,55387,0
+EMP091598,38,Engineering,Junior Developer,2.4,2.4,Married,1,-0.549,1.6,3.65,5.21,8.29,8.13,5.03,mid,2025-01-28,96800,80869,0
+EMP075439,22,Engineering,Trainee Developer,0.0,0.0,Single,1,0.903,1.48,3.26,5.91,7.97,8.1,4.46,multinational,2024-06-07,50000,63552,0
+EMP029720,24,Engineering,Junior Developer,2.0,0.2,Single,1,0.071,1.84,1.27,5.21,7.97,7.47,8.52,mid,2025-04-19,94000,95993,0
+EMP038607,39,QA,Senior QA Engineer,5.0,3.0,Married,0,-0.298,1.75,2.06,4.97,5.54,4.94,6.99,mid,2024-01-28,325000,295929,1
+EMP077127,45,DevOps,DevOps Engineer,3.0,1.6,Single,1,0.14,4.42,8.73,4.7,8.72,7.34,6.78,startup,2019-02-26,260000,270951,0
+EMP097088,31,Engineering,Junior Developer,1.4,0.9,Married,1,-0.286,0.16,1.08,5.11,6.04,9.32,4.73,startup,2025-11-07,89800,82093,0
+EMP024627,23,Engineering,Junior Developer,1.0,0.4,Single,1,1.0,0.72,3.92,4.12,8.14,9.08,7.82,multinational,2023-12-04,87000,121431,0
+EMP061815,38,DevOps,DevOps Engineer,4.6,0.8,Married,0,-0.547,0.47,1.54,6.17,8.02,6.35,7.51,startup,2024-05-16,292000,244054,0
+EMP069756,22,Engineering,Junior Developer,0.0,0.0,Single,1,0.732,2.63,1.07,5.33,8.64,6.4,4.93,mid,2025-06-28,80000,97562,0
+EMP011931,26,Engineering,Software Engineer,4.0,0.4,Single,0,0.293,2.41,10.0,4.51,6.46,7.74,5.97,mid,2022-12-07,210000,228489,1
+EMP016161,26,QA,QA Engineer,3.0,2.5,Married,1,0.286,0.11,10.0,4.17,7.02,8.0,4.21,startup,2020-01-07,159000,172623,0
+EMP047440,29,Engineering,Senior Software Engineer,7.0,2.8,Married,0,0.318,5.49,9.0,4.87,5.07,6.52,5.01,startup,2019-11-23,440000,482010,1
+EMP034606,26,Engineering,Junior Developer,0.7,0.2,Married,1,0.191,8.16,10.0,4.67,7.73,9.05,8.48,mid,2020-08-31,84900,89764,1
+EMP014107,34,QA,QA Engineer,2.4,0.3,Single,1,-0.247,5.22,9.58,5.12,8.86,9.07,8.89,large,2019-02-24,151200,140013,0
+EMP090651,39,Engineering,Junior Developer,0.4,0.4,Single,1,0.095,6.97,9.56,4.99,8.1,5.79,7.5,mid,2022-01-26,82800,85152,0
+EMP098435,30,Engineering,Senior Software Engineer,6.5,0.3,Married,1,0.34,7.62,8.98,5.37,6.83,7.83,5.52,large,2020-05-01,430000,473874,0
+EMP017503,35,Engineering,Senior Software Engineer,5.5,2.4,Married,1,-0.119,6.77,9.6,5.93,8.99,8.78,6.56,mid,2022-04-12,410000,395394,0
+EMP063486,22,Engineering,Trainee Developer,0.0,0.0,Married,1,-0.865,4.71,10.0,5.05,6.39,8.6,8.39,startup,2019-08-08,50000,37024,1
+EMP033076,40,QA,Senior QA Engineer,8.4,1.4,Married,1,-0.239,0.59,2.86,6.26,8.88,8.22,4.81,startup,2024-06-11,376000,349087,0
+EMP079809,33,Engineering,Junior Developer,1.9,0.9,Married,1,-0.033,0.46,7.56,4.95,7.5,7.87,4.24,large,2022-05-14,93300,92372,0
+EMP090791,22,Engineering,Junior Developer,0.0,0.0,Single,1,-0.011,8.3,10.0,5.26,6.56,5.6,6.19,mid,2021-08-14,80000,79731,0
+EMP093365,29,QA,QA Engineer,1.7,1.3,Married,0,0.291,4.3,10.0,5.96,7.62,4.2,7.91,large,2019-03-04,142100,154486,0
+EMP018293,41,QA,QA Engineer,2.3,0.4,Single,1,0.128,9.62,9.71,5.65,6.58,7.42,5.01,mid,2020-03-12,149900,155644,0
+EMP043850,31,Engineering,Tech Lead,5.0,3.3,Married,1,0.321,1.42,9.01,5.85,6.39,7.01,8.03,large,2020-01-28,575000,630383,1
+EMP035068,22,Engineering,Junior Developer,0.0,0.0,Married,1,-0.439,1.45,9.73,4.06,7.86,5.51,4.87,mid,2022-08-25,80000,69456,1
+EMP061393,27,Engineering,Software Engineer,1.2,1.2,Married,1,0.183,2.98,1.9,4.99,8.1,5.91,6.41,large,2025-05-25,168000,177208,0
+EMP027382,34,QA,QA Engineer,1.2,1.2,Single,1,0.002,9.48,8.37,4.4,7.7,6.9,5.54,mid,2021-03-25,135600,135679,0
+EMP085414,38,Engineering,Senior Software Engineer,6.7,4.0,Married,1,0.869,2.17,3.11,5.69,4.87,8.51,4.96,large,2023-05-16,434000,547125,0
+EMP013798,34,Engineering,Junior Developer,1.4,1.2,Married,1,0.431,4.15,8.12,4.36,7.11,6.07,8.99,mid,2019-02-07,89800,101416,0
+EMP001729,37,Business,Architect,12.3,0.9,Married,1,1.0,1.59,3.41,5.99,7.86,7.17,7.96,multinational,2023-03-03,1200000,1649317,0
+EMP066101,30,DevOps,DevOps Engineer,3.1,0.4,Married,1,0.053,9.73,9.36,5.18,7.42,7.89,6.11,startup,2020-10-15,262000,266143,1
+EMP007678,31,QA,QA Engineer,4.0,4.0,Married,1,0.493,0.87,3.47,4.2,4.35,9.1,4.78,mid,2024-11-29,172000,197459,0
+EMP073315,33,QA,QA Engineer,1.5,1.0,Single,1,0.611,0.06,7.99,5.66,8.02,9.28,6.2,multinational,2022-10-04,139500,165082,0
+EMP069696,38,QA,QA Engineer,3.3,0.4,Married,1,0.16,0.07,1.31,5.04,6.37,8.89,8.21,mid,2023-02-22,162900,170733,0
+EMP005439,31,Engineering,Junior Developer,0.9,0.9,Single,1,-0.822,1.82,3.54,4.9,7.84,7.63,5.79,startup,2023-07-12,86300,65021,1
+EMP073381,36,Engineering,Junior Developer,1.6,0.9,Married,1,-0.326,8.49,7.8,5.09,6.68,6.88,4.36,mid,2021-01-08,91200,82280,1
+EMP034591,29,Engineering,Software Engineer,2.4,2.4,Married,1,-0.206,2.16,1.31,4.41,7.93,7.91,6.37,mid,2025-08-14,186000,174495,1
+EMP008453,41,Engineering,Trainee Developer,0.9,0.9,Married,1,0.236,9.38,7.9,5.74,8.68,6.54,8.47,large,2021-07-04,52700,56437,0
+EMP006235,33,Engineering,Senior Software Engineer,7.0,0.4,Single,0,0.99,5.84,7.21,4.86,6.4,5.3,4.94,multinational,2019-10-03,440000,570702,0
+EMP056580,37,Engineering,Junior Developer,1.4,0.1,Married,1,0.171,7.15,7.75,5.55,8.1,5.75,4.54,mid,2021-11-14,89800,94417,0
+EMP044069,30,QA,Senior QA Engineer,8.0,0.1,Married,0,0.454,2.97,3.07,4.2,6.06,6.89,4.42,mid,2023-03-14,370000,420444,1
+EMP073662,27,Engineering,Software Engineer,2.1,2.1,Married,0,0.725,1.73,2.4,4.4,8.18,4.28,5.58,startup,2025-08-27,181500,220967,0
+EMP018242,27,Engineering,Senior Software Engineer,5.0,0.3,Single,1,0.642,0.96,8.48,4.12,7.8,7.97,4.88,mid,2022-10-09,400000,477000,0
+EMP072560,37,Business,Architect,13.5,1.5,Married,1,0.157,7.83,8.45,5.14,7.01,8.12,8.57,large,2020-11-09,1200000,1256571,1
+EMP011373,35,Engineering,Senior Software Engineer,5.6,3.0,Married,0,-0.444,0.0,1.94,4.05,4.14,6.31,6.2,mid,2024-08-19,412000,357098,0
+EMP053068,24,QA,QA Engineer,2.0,0.7,Married,1,-0.11,2.22,3.89,5.64,6.11,7.28,4.36,large,2023-02-06,146000,141192,0
+EMP054397,24,Engineering,Junior Developer,1.4,0.7,Married,1,0.721,2.3,3.74,4.79,6.83,7.82,5.14,multinational,2025-10-04,89800,109226,0
+EMP060744,39,DevOps,DevOps Engineer,3.0,1.0,Married,0,-0.461,8.35,8.7,5.64,6.95,4.74,7.73,mid,2020-08-09,260000,224004,0
+EMP004233,46,Engineering,Software Engineer,1.1,1.1,Married,1,0.36,1.7,3.02,5.08,7.73,8.46,5.98,mid,2025-03-29,166500,184492,0
+EMP066150,39,DevOps,DevOps Engineer,3.0,1.4,Married,1,0.858,0.11,3.94,4.71,8.93,6.13,7.74,large,2023-01-01,260000,326904,1
+EMP000227,30,Engineering,Junior Developer,0.6,0.6,Single,1,0.616,0.89,7.0,4.54,6.65,8.15,7.17,mid,2022-12-12,84200,99748,0
+EMP038051,43,Engineering,Junior Developer,2.4,2.4,Married,1,0.142,7.01,7.88,4.98,6.71,9.13,5.52,mid,2022-01-12,96800,100923,0
+EMP075831,45,Engineering,Junior Developer,2.2,2.2,Married,1,0.045,0.7,8.81,6.39,6.34,6.58,7.14,large,2022-07-01,95400,96697,1
+EMP011713,37,Engineering,Software Engineer,4.9,4.4,Married,1,0.523,2.07,1.88,6.29,4.22,8.75,7.17,large,2023-05-21,223500,258534,0
+EMP089799,35,Engineering,Senior Software Engineer,7.2,7.2,Married,1,0.501,8.1,7.33,4.28,4.67,8.03,8.2,mid,2021-02-16,444000,510678,0
+EMP084722,32,QA,QA Engineer,1.0,1.0,Married,1,0.185,1.47,7.78,5.84,8.39,6.44,8.02,mid,2022-12-14,133000,140399,0
+EMP011651,31,Business,Engineering Manager,8.9,4.5,Single,1,0.192,2.99,1.86,5.44,4.88,5.46,5.11,mid,2024-10-11,956000,1011203,0
+EMP063793,32,Engineering,Junior Developer,0.5,0.5,Married,1,-0.544,2.91,9.37,4.85,6.85,8.69,4.47,mid,2020-01-30,83500,69865,0
+EMP018332,50,DevOps,DevOps Engineer,3.0,2.0,Single,1,0.214,0.1,9.25,6.2,6.78,7.46,8.87,mid,2022-07-10,260000,276653,0
+EMP059465,27,QA,Senior QA Engineer,5.0,4.9,Single,1,-0.324,8.8,9.14,5.62,2.34,8.77,8.37,startup,2021-04-01,325000,293450,1
+EMP031839,28,Engineering,Trainee Developer,0.3,0.0,Married,1,0.656,6.07,10.0,4.63,6.19,5.91,6.21,mid,2022-04-12,50900,60910,0
+EMP035888,31,Engineering,Trainee Developer,0.3,0.3,Married,1,0.681,2.29,1.16,4.57,8.19,6.09,7.36,large,2023-08-11,50900,61294,1
+EMP070558,35,Engineering,Software Engineer,2.1,2.1,Married,1,0.056,5.66,8.48,5.94,8.52,7.34,6.46,startup,2022-03-08,181500,184565,0
+EMP068842,31,Engineering,Software Engineer,2.8,2.8,Married,1,0.129,0.55,1.92,4.24,6.64,6.2,4.41,mid,2025-01-19,192000,199421,0
+EMP044300,28,QA,QA Engineer,1.4,0.7,Single,1,0.013,1.16,1.12,4.26,8.23,5.76,8.81,mid,2025-08-16,138200,138721,0
+EMP039432,23,Engineering,Junior Developer,0.3,0.3,Single,1,0.413,6.8,8.71,4.11,8.65,7.21,8.44,mid,2019-03-16,82100,92271,0
+EMP071758,32,DevOps,DevOps Engineer,4.6,2.1,Married,1,0.839,9.87,7.21,5.67,7.35,7.54,8.73,large,2021-10-18,292000,365528,1
+EMP051267,38,Business,Architect,16.0,0.2,Married,0,-0.022,0.02,8.96,6.22,8.98,7.72,4.05,large,2022-12-08,1200000,1192109,1
+EMP049809,50,Engineering,Trainee Developer,0.8,0.8,Married,1,-0.09,4.92,7.42,6.07,8.09,5.98,5.09,mid,2019-10-13,52400,50986,0
+EMP086689,26,QA,QA Engineer,4.0,0.1,Married,1,0.517,0.37,2.05,4.38,8.62,8.84,5.15,multinational,2023-02-26,172000,198665,0
+EMP061005,29,Engineering,Tech Lead,5.1,0.3,Married,1,0.219,0.82,2.86,4.28,6.5,6.76,7.9,mid,2023-04-19,577500,615406,0
+EMP060771,39,QA,QA Engineer,4.0,1.5,Married,1,-0.119,9.38,8.83,4.85,8.38,8.72,6.7,mid,2021-05-16,172000,165874,0
+EMP000088,27,QA,QA Engineer,3.2,0.7,Single,1,-0.406,9.15,10.0,5.98,6.39,5.92,7.62,mid,2021-04-16,161600,141907,1
+EMP077204,24,QA,QA Engineer,2.0,1.6,Married,1,0.177,0.82,1.43,5.38,7.48,7.01,7.37,mid,2023-05-09,146000,153753,0
+EMP051988,38,Engineering,Software Engineer,4.2,0.2,Married,1,0.611,5.88,8.43,4.45,6.29,6.15,8.89,mid,2019-12-16,213000,252040,0
+EMP082150,39,QA,Senior QA Engineer,5.2,5.2,Married,1,0.845,7.96,9.22,5.1,4.64,6.48,6.29,mid,2020-09-15,328000,411127,0
+EMP043734,29,Engineering,Senior Software Engineer,7.0,5.4,Single,1,0.34,8.06,8.46,5.85,4.41,9.31,6.74,large,2021-06-24,440000,484850,0
+EMP095182,22,Engineering,Junior Developer,0.0,0.0,Single,1,0.159,4.27,9.84,5.83,8.79,7.48,6.49,startup,2019-11-09,80000,83815,0
+EMP088477,40,QA,QA Engineer,2.7,2.7,Married,1,-0.159,1.54,7.67,5.82,6.31,8.16,5.57,startup,2022-12-08,155100,147692,0
+EMP062006,30,Engineering,Senior Software Engineer,5.8,2.0,Married,1,-0.578,1.38,1.89,3.67,8.31,7.34,6.18,mid,2025-07-04,416000,343808,0
+EMP030884,37,Engineering,Software Engineer,4.1,0.9,Married,1,-0.164,9.65,7.43,5.2,7.65,7.37,4.73,mid,2020-06-02,211500,201071,0
+EMP050767,33,Engineering,Tech Lead,5.4,2.5,Single,0,0.557,5.61,9.15,4.95,8.9,3.58,5.13,mid,2019-04-19,585000,682824,0
+EMP074956,36,QA,Senior QA Engineer,5.7,3.0,Married,0,0.128,0.81,2.95,5.35,6.18,7.49,8.41,mid,2023-10-06,335500,348433,0
+EMP012751,38,QA,QA Engineer,1.4,1.4,Married,0,0.667,7.78,7.79,5.97,6.27,4.19,6.95,large,2021-04-07,138200,165874,0
+EMP036507,49,DevOps,DevOps Engineer,7.2,2.2,Married,0,-0.613,2.42,1.57,5.68,7.31,7.9,8.36,startup,2023-03-07,344000,280712,0
+EMP009938,27,Engineering,Tech Lead,5.0,2.3,Married,1,0.741,8.53,10.0,4.38,7.93,7.95,6.84,multinational,2021-11-05,575000,702831,0
+EMP018374,36,Engineering,Software Engineer,2.8,2.8,Married,1,0.404,1.17,2.95,5.83,6.43,6.97,6.62,mid,2024-12-08,192000,215290,1
+EMP092221,44,DevOps,DevOps Engineer,3.0,0.3,Married,1,0.217,5.45,7.06,4.46,6.03,9.45,4.71,mid,2019-08-08,260000,276901,0
+EMP090730,28,Engineering,Senior Software Engineer,6.0,3.5,Married,1,0.649,2.02,1.17,5.18,6.93,7.95,4.6,multinational,2024-03-31,420000,501771,0
+EMP012397,31,QA,Senior QA Engineer,5.0,2.5,Single,1,-0.468,2.84,2.38,5.54,7.67,8.26,8.67,startup,2024-08-16,325000,279414,0
+EMP094922,40,Engineering,Software Engineer,1.3,0.7,Married,1,0.772,0.49,2.74,4.06,7.24,5.99,5.42,large,2025-02-06,169500,208771,0
+EMP033802,33,Engineering,Trainee Developer,0.1,0.1,Single,1,0.333,5.66,9.86,5.02,6.02,7.94,7.06,mid,2019-08-20,50300,55321,0
+EMP001231,36,QA,QA Engineer,3.7,1.5,Married,1,1.0,0.85,2.26,5.25,8.56,8.59,6.94,multinational,2023-01-08,168100,245885,0
+EMP020335,32,DevOps,DevOps Engineer,7.2,1.2,Married,1,-0.261,1.45,1.88,4.47,8.91,6.75,7.04,mid,2024-10-31,344000,317104,0
+EMP078044,35,Engineering,Senior Software Engineer,5.6,1.8,Married,1,-0.622,1.75,1.05,4.14,8.63,7.4,8.15,mid,2025-01-27,412000,335061,1
+EMP040351,42,Engineering,Software Engineer,1.8,0.4,Married,1,-0.326,1.45,2.19,5.12,8.38,7.47,4.1,mid,2024-12-04,177000,159664,1
+EMP050863,23,QA,QA Engineer,1.0,1.0,Single,1,0.119,0.92,3.73,4.62,8.37,9.33,6.26,mid,2025-06-02,133000,137751,0
+EMP065410,43,Engineering,Junior Developer,0.0,0.0,Married,1,0.412,9.45,8.84,4.8,6.33,5.72,5.58,mid,2021-03-24,80000,89883,0
+EMP098466,37,QA,Senior QA Engineer,11.4,1.1,Married,1,-0.121,2.76,1.76,5.61,6.64,7.83,4.11,startup,2024-06-10,400000,385425,0
+EMP083943,27,Engineering,Junior Developer,0.4,0.4,Married,1,-0.228,1.19,3.04,5.27,7.11,7.34,6.15,startup,2025-03-03,82800,77135,1
+EMP035641,35,Engineering,Software Engineer,4.8,0.7,Married,1,0.109,1.2,2.59,4.48,6.43,7.6,5.93,mid,2023-05-12,222000,229279,0
+EMP076610,41,DevOps,DevOps Engineer,4.5,0.7,Married,1,-0.017,7.03,7.09,5.99,8.36,6.88,6.19,large,2020-06-13,290000,288503,0
+EMP001046,40,QA,Senior QA Engineer,9.9,2.5,Married,1,-0.366,0.35,1.5,5.38,7.02,7.37,6.15,mid,2023-03-06,398500,354770,0
+EMP097796,32,Engineering,Junior Developer,1.7,1.1,Married,1,-0.487,7.89,7.58,4.68,7.39,8.27,8.46,mid,2021-11-29,91900,78483,0
+EMP005938,34,Engineering,Junior Developer,2.7,1.6,Single,0,-0.296,9.57,8.9,5.49,7.47,6.76,6.17,mid,2020-07-05,98900,90121,0
+EMP057688,32,QA,QA Engineer,4.4,4.4,Married,1,-0.161,4.36,9.89,5.87,4.77,6.4,6.0,mid,2019-05-27,177200,168633,1
+EMP007896,22,Engineering,Junior Developer,0.0,0.0,Married,1,0.505,1.53,2.87,4.29,8.78,8.45,4.32,large,2023-03-25,80000,92129,0
+EMP087485,25,DevOps,DevOps Engineer,3.0,0.5,Single,1,0.212,7.13,8.55,5.31,8.2,6.28,6.41,mid,2020-04-09,260000,276538,1
+EMP017571,30,QA,QA Engineer,2.6,0.0,Married,1,-0.49,1.4,1.87,4.38,8.34,5.72,6.7,mid,2024-03-13,153800,131208,0
+EMP053065,39,Engineering,Junior Developer,2.9,2.1,Married,1,0.68,0.63,1.99,6.19,8.62,7.53,7.79,multinational,2024-08-21,100300,120772,0
+EMP011142,33,DevOps,DevOps Engineer,5.8,0.4,Married,1,-0.095,0.43,1.56,4.11,8.56,8.72,7.25,startup,2025-05-29,316000,306968,0
+EMP096937,23,QA,QA Engineer,1.0,0.3,Single,1,-0.259,9.44,8.7,5.82,8.77,5.61,8.0,mid,2020-06-06,133000,122653,1
+EMP050491,33,Engineering,Senior Software Engineer,6.8,2.5,Single,1,1.0,2.09,1.42,5.2,8.51,8.76,4.65,multinational,2025-01-12,436000,625210,1
+EMP033223,29,Engineering,Junior Developer,2.5,2.5,Married,1,-0.007,0.7,1.1,5.06,7.34,7.34,5.13,mid,2025-10-03,97500,97293,0
+EMP082507,28,Engineering,Software Engineer,1.7,0.3,Married,1,0.065,0.2,2.71,5.99,6.74,6.48,6.38,mid,2023-03-19,175500,178901,0
+EMP036297,39,DevOps,DevOps Engineer,6.5,1.1,Married,1,-0.333,5.8,7.87,5.83,7.29,6.44,4.46,mid,2019-06-03,330000,297004,0
+EMP067925,22,Engineering,Junior Developer,0.0,0.0,Single,1,0.552,5.69,10.0,5.2,7.37,9.09,8.64,large,2022-02-17,80000,93239,0
+EMP094405,36,QA,QA Engineer,2.5,2.5,Married,1,1.0,7.02,9.52,5.64,7.37,8.52,7.75,multinational,2021-08-22,152500,228508,0
+EMP084993,28,Engineering,Trainee Developer,0.9,0.1,Married,1,-0.253,5.91,10.0,5.08,6.88,6.69,4.52,mid,2019-09-02,52700,48702,0
+EMP062123,22,Engineering,Trainee Developer,0.0,0.0,Single,1,0.216,1.19,3.69,4.98,6.73,7.87,6.0,startup,2023-12-10,50000,53240,0
+EMP065744,37,Engineering,Software Engineer,3.8,1.1,Married,1,0.227,1.32,1.65,5.82,8.05,6.62,8.84,large,2024-04-13,207000,221100,0
+EMP040247,36,Engineering,Junior Developer,0.6,0.6,Single,1,0.351,1.96,1.61,5.36,7.75,7.46,4.79,startup,2025-06-11,84200,93065,0
+EMP016362,42,Engineering,Software Engineer,1.6,1.6,Married,1,0.694,7.04,9.38,5.92,6.15,7.61,6.26,multinational,2022-04-02,174000,210206,0
+EMP055939,28,DevOps,DevOps Engineer,4.1,0.3,Single,1,-0.121,1.92,10.0,5.21,7.39,8.07,5.54,mid,2020-01-16,282000,271739,0
+EMP028675,34,Engineering,Software Engineer,3.0,0.4,Married,0,0.17,1.75,2.96,5.97,8.83,4.98,6.21,large,2023-10-22,195000,204929,1
+EMP023958,38,Engineering,Trainee Developer,0.5,0.5,Married,1,0.02,1.22,2.97,4.6,7.3,6.05,7.5,startup,2024-11-02,51500,51807,0
+EMP007859,45,Engineering,Software Engineer,2.2,2.2,Married,0,-0.516,2.3,1.51,5.81,8.42,4.46,8.02,mid,2025-09-02,183000,154686,0
+EMP094213,28,Engineering,Tech Lead,6.0,1.3,Single,1,-0.351,1.96,2.45,4.28,6.94,7.58,6.36,mid,2023-07-22,600000,536845,0
+EMP063352,27,Engineering,Software Engineer,3.7,3.7,Married,1,-0.303,7.47,10.0,5.16,6.51,8.65,5.86,startup,2021-01-08,205500,186834,1
+EMP050199,22,Engineering,Junior Developer,0.0,0.0,Married,0,-0.565,9.05,10.0,4.13,7.06,4.32,4.31,startup,2021-04-27,80000,66443,1
+EMP055239,22,Engineering,Junior Developer,0.0,0.0,Single,1,-0.193,2.54,1.34,4.17,8.51,5.84,6.09,startup,2023-02-25,80000,75367,0
+EMP098341,29,QA,Senior QA Engineer,6.5,4.6,Married,1,0.123,5.62,9.31,5.38,4.44,9.13,4.36,large,2019-08-19,347500,360346,0
+EMP013706,38,Engineering,Senior Software Engineer,7.6,4.3,Married,0,-0.197,2.89,1.98,6.46,2.09,7.4,7.24,mid,2023-09-19,452000,425341,0
+EMP013580,27,QA,QA Engineer,1.6,1.6,Single,0,-0.175,2.19,2.0,4.02,8.79,5.47,4.4,mid,2024-04-14,140800,133428,0
+EMP034571,26,Engineering,Software Engineer,1.3,1.3,Single,1,-0.378,1.57,2.8,5.73,7.88,7.72,8.42,mid,2023-12-16,169500,150264,0
+EMP093622,22,Engineering,Junior Developer,0.0,0.0,Single,1,0.232,0.41,3.39,5.34,8.77,7.13,4.46,large,2023-01-11,80000,85571,0
+EMP002105,25,Engineering,Software Engineer,3.0,3.0,Married,1,-0.209,0.58,3.98,4.83,6.78,6.15,5.02,large,2024-02-12,195000,182765,0
+EMP074361,30,Engineering,Software Engineer,2.2,1.2,Single,1,-0.041,7.85,9.37,5.43,6.76,8.66,6.12,mid,2022-04-27,183000,180766,1
+EMP085889,37,Engineering,Software Engineer,1.5,0.8,Married,1,-0.249,2.96,3.44,4.61,7.23,8.92,4.52,mid,2025-03-09,172500,159604,0
+EMP099907,49,Engineering,Software Engineer,2.8,1.8,Single,0,0.384,9.65,7.99,6.53,7.59,6.6,8.13,mid,2021-01-12,192000,214117,0
+EMP056430,28,Engineering,Junior Developer,0.5,0.5,Single,0,-0.459,7.56,10.0,4.34,8.02,4.62,6.34,mid,2020-05-01,83500,71999,1
+EMP086503,32,QA,QA Engineer,1.3,1.3,Single,1,-0.587,1.54,1.06,4.32,8.59,8.79,8.56,mid,2024-12-03,136900,112809,0
+EMP012470,22,Engineering,Junior Developer,0.0,0.0,Single,1,-0.052,9.61,9.13,4.46,6.77,7.0,5.73,mid,2020-11-28,80000,78743,0
+EMP014779,33,Engineering,Senior Software Engineer,5.6,1.5,Single,1,-0.376,1.95,8.7,5.23,7.43,6.12,5.14,mid,2022-08-06,412000,365505,0
+EMP027544,29,Engineering,Senior Software Engineer,6.7,6.7,Married,1,-0.368,2.56,2.27,4.39,2.13,8.13,6.6,startup,2024-05-24,434000,386062,1
+EMP097977,43,Engineering,Trainee Developer,0.9,0.5,Married,1,0.1,2.47,2.62,5.43,7.93,8.62,4.65,mid,2024-01-07,52700,54279,0
+EMP046123,30,Engineering,Software Engineer,1.2,1.2,Married,0,1.0,2.89,3.79,4.79,6.21,7.71,6.85,multinational,2023-09-18,168000,223843,0
+EMP049369,29,Engineering,Trainee Developer,0.2,0.2,Single,1,-0.211,1.64,3.3,4.15,8.16,8.2,8.47,large,2024-01-24,50600,47393,0
+EMP001333,23,Engineering,Software Engineer,1.0,1.0,Married,1,0.07,2.24,2.24,4.81,7.47,7.25,5.45,large,2025-04-13,165000,168445,0
+EMP002361,46,Engineering,Tech Lead,7.0,0.1,Married,1,0.497,1.32,2.81,5.36,6.17,7.99,6.13,multinational,2023-01-03,625000,718227,0
+EMP082418,45,Engineering,Trainee Developer,0.6,0.6,Married,1,-0.164,7.86,7.96,6.34,7.52,5.71,8.26,startup,2021-01-25,51800,49258,0
+EMP045149,30,Engineering,Trainee Developer,0.3,0.3,Single,1,1.0,9.02,8.56,5.47,7.53,9.42,5.55,large,2021-10-31,50900,67003,0
+EMP007842,47,Engineering,Software Engineer,3.2,0.3,Married,0,0.348,0.95,1.4,4.14,8.04,4.52,4.74,large,2024-12-05,198000,218669,0
+EMP086291,40,Engineering,Software Engineer,1.4,1.4,Married,1,0.386,2.87,7.87,5.42,7.49,8.94,4.76,mid,2022-12-08,171000,190826,0
+EMP036035,32,DevOps,DevOps Engineer,4.7,1.9,Single,1,0.443,0.74,3.04,5.13,6.71,7.58,6.53,large,2024-08-16,294000,333099,1
+EMP018146,32,Engineering,Tech Lead,9.5,0.9,Single,1,-0.122,1.05,3.31,5.02,8.31,6.75,7.7,startup,2025-10-29,687500,662239,1
+EMP070746,23,Engineering,Trainee Developer,0.7,0.7,Married,1,-0.127,5.89,10.0,4.4,7.4,8.43,5.01,startup,2019-01-14,52100,50113,0
+EMP078804,40,DevOps,DevOps Engineer,4.2,0.3,Married,1,-0.038,1.48,2.03,5.67,6.71,8.16,4.61,mid,2023-05-01,284000,280795,0
+EMP094236,38,QA,QA Engineer,2.8,2.8,Married,1,-0.316,7.85,8.24,5.73,5.31,7.69,7.93,startup,2021-09-01,156400,141596,1
+EMP052491,35,Engineering,Junior Developer,0.8,0.4,Married,1,-0.054,1.57,1.56,4.99,6.01,7.07,6.92,mid,2024-12-25,85600,84201,0
+EMP088895,35,QA,Senior QA Engineer,9.3,3.2,Single,1,0.41,8.71,9.39,5.12,6.75,6.78,8.48,mid,2020-04-18,389500,437424,0
+EMP059269,32,QA,QA Engineer,4.2,1.4,Single,0,-0.892,2.7,2.07,4.84,8.45,7.25,4.77,startup,2025-09-03,174600,127891,0
+EMP019663,33,Engineering,Junior Developer,0.2,0.2,Married,1,-0.187,0.87,9.66,5.4,7.49,7.9,5.33,mid,2022-12-08,81400,76841,1

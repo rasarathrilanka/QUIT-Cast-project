@@ -1,0 +1,201 @@
+employee_id,age,time_at_current_role,marital_status,role,work_experience,wfh_available
+EMP0001,50,1.18,Single,Architect,2.73,0
+EMP0002,32,0.1,Married,Tech Lead,3.69,1
+EMP0003,51,0.61,Married,Senior Software Engineer,0.61,1
+EMP0004,46,0.45,Married,Engineering Manager,0.45,1
+EMP0005,24,0.1,Married,Trainee Developer,1.8,1
+EMP0006,35,0.31,Married,Tech Lead,0.31,1
+EMP0007,28,0.57,Married,QA Engineer,0.57,0
+EMP0008,25,0.41,Single,Software Engineer,2.37,1
+EMP0009,47,2.6,Married,Tech Lead,7.84,1
+EMP0010,35,0.98,Single,Senior Software Engineer,1.18,1
+EMP0011,45,0.3,Married,Senior Software Engineer,2.35,1
+EMP0012,22,0.1,Single,Junior Developer,0.1,0
+EMP0013,38,2.79,Married,Architect,2.79,1
+EMP0014,49,0.13,Married,Engineering Manager,1.21,1
+EMP0015,45,0.96,Married,Engineering Manager,0.96,1
+EMP0016,35,0.59,Married,Engineering Manager,0.81,0
+EMP0017,36,0.1,Married,Senior Software Engineer,0.34,1
+EMP0018,53,1.55,Married,Senior Software Engineer,2.78,0
+EMP0019,34,0.53,Single,Senior Software Engineer,0.53,1
+EMP0020,27,1.62,Married,Software Engineer,1.62,1
+EMP0021,49,0.95,Married,Director,0.95,0
+EMP0022,34,1.08,Married,Senior Software Engineer,2.14,0
+EMP0023,45,2.19,Married,Tech Lead,2.19,1
+EMP0024,33,0.67,Married,Senior Software Engineer,1.07,0
+EMP0025,23,0.98,Single,Junior Developer,0.98,0
+EMP0026,23,1.0,Single,Junior Developer,1.0,0
+EMP0027,38,2.01,Married,Tech Lead,3.0,1
+EMP0028,37,0.1,Married,Tech Lead,0.62,1
+EMP0029,57,0.77,Single,Tech Lead,0.77,0
+EMP0030,54,2.25,Married,Tech Lead,5.46,1
+EMP0031,44,0.38,Married,Engineering Manager,0.78,1
+EMP0032,23,1.0,Married,QA Engineer,1.0,0
+EMP0033,56,1.04,Married,Architect,5.82,1
+EMP0034,32,1.74,Married,Tech Lead,3.32,1
+EMP0035,46,0.53,Married,Senior Software Engineer,0.53,1
+EMP0036,37,0.1,Divorced,Senior Software Engineer,0.1,0
+EMP0037,29,0.2,Married,QA Engineer,2.52,1
+EMP0038,43,1.5,Married,Director,1.5,1
+EMP0039,55,3.32,Married,Engineering Manager,3.32,0
+EMP0040,40,0.13,Married,Architect,0.13,1
+EMP0041,27,1.12,Single,Software Engineer,5.0,1
+EMP0042,56,0.42,Divorced,Senior Software Engineer,1.09,1
+EMP0043,24,2.0,Single,Junior Developer,2.0,1
+EMP0044,45,0.59,Married,Engineering Manager,1.33,1
+EMP0045,47,0.89,Married,Engineering Manager,3.64,1
+EMP0046,47,1.43,Married,Architect,7.33,1
+EMP0047,41,4.41,Married,Engineering Manager,4.77,1
+EMP0048,49,0.8,Married,Tech Lead,3.34,0
+EMP0049,43,0.11,Married,Senior Software Engineer,0.11,1
+EMP0050,58,0.73,Married,Architect,0.73,0
+EMP0051,53,2.59,Married,Tech Lead,3.04,1
+EMP0052,51,1.7,Single,Tech Lead,1.7,1
+EMP0053,47,1.05,Divorced,Architect,3.57,0
+EMP0054,22,0.1,Single,Junior Developer,0.1,1
+EMP0055,22,0.1,Married,Trainee Developer,0.1,1
+EMP0056,33,0.38,Married,Senior Software Engineer,0.38,0
+EMP0057,51,0.21,Married,Engineering Manager,1.93,1
+EMP0058,57,1.53,Single,Tech Lead,1.53,1
+EMP0059,55,1.39,Married,Senior Software Engineer,8.13,1
+EMP0060,25,3.0,Single,DevOps Engineer,3.0,1
+EMP0061,41,1.23,Married,Tech Lead,3.09,1
+EMP0062,58,0.46,Married,Architect,3.16,1
+EMP0063,33,0.3,Single,Senior Software Engineer,0.3,0
+EMP0064,29,0.6,Single,QA Engineer,1.25,1
+EMP0065,32,0.66,Married,Tech Lead,4.88,0
+EMP0066,30,0.27,Married,Tech Lead,3.95,1
+EMP0067,53,1.12,Married,Director,5.86,1
+EMP0068,46,1.37,Married,Tech Lead,2.29,1
+EMP0069,34,0.1,Married,Senior Software Engineer,0.1,0
+EMP0070,28,1.36,Married,QA Engineer,1.98,0
+EMP0071,26,2.79,Single,Software Engineer,3.35,1
+EMP0072,35,0.86,Married,Tech Lead,6.56,0
+EMP0073,33,3.65,Married,Senior QA Engineer,6.05,1
+EMP0074,30,0.18,Married,Tech Lead,0.25,1
+EMP0075,22,0.1,Married,Junior Developer,0.1,1
+EMP0076,52,0.57,Married,Tech Lead,3.66,1
+EMP0077,24,2.0,Single,Junior Developer,2.0,1
+EMP0078,22,0.1,Single,Junior Developer,0.1,0
+EMP0079,54,0.1,Married,Director,0.1,0
+EMP0080,42,0.58,Single,Director,7.54,1
+EMP0081,39,1.05,Single,Senior Software Engineer,1.05,1
+EMP0082,24,0.99,Married,Junior Developer,0.99,1
+EMP0083,33,0.56,Single,Senior Software Engineer,0.56,1
+EMP0084,49,2.4,Single,Director,12.85,1
+EMP0085,54,0.29,Married,Engineering Manager,0.95,0
+EMP0086,27,1.08,Married,QA Engineer,2.85,1
+EMP0087,26,4.0,Single,Software Engineer,4.0,0
+EMP0088,42,1.68,Married,Tech Lead,5.3,0
+EMP0089,56,0.24,Single,Senior Software Engineer,0.24,1
+EMP0090,26,4.0,Married,Software Engineer,4.0,1
+EMP0091,38,0.64,Married,Senior Software Engineer,0.87,0
+EMP0092,22,0.1,Single,Trainee Developer,0.1,1
+EMP0093,55,1.1,Married,Architect,1.1,1
+EMP0094,51,0.1,Married,Tech Lead,0.43,1
+EMP0095,42,1.92,Married,Architect,7.0,1
+EMP0096,55,0.29,Married,Engineering Manager,0.29,1
+EMP0097,54,2.92,Married,Tech Lead,2.92,1
+EMP0098,25,0.14,Single,QA Engineer,3.0,0
+EMP0099,27,0.55,Married,Software Engineer,3.01,0
+EMP0100,44,0.45,Single,Senior Software Engineer,0.45,0
+EMP0101,46,0.38,Married,Tech Lead,3.3,0
+EMP0102,40,0.1,Married,Tech Lead,1.28,1
+EMP0103,26,1.36,Married,Software Engineer,1.36,1
+EMP0104,30,1.43,Single,Senior Software Engineer,3.49,0
+EMP0105,38,0.41,Married,Architect,4.14,0
+EMP0106,43,2.27,Married,Architect,2.27,0
+EMP0107,28,0.1,Married,QA Engineer,4.15,1
+EMP0108,59,0.94,Married,Senior Software Engineer,0.94,0
+EMP0109,38,0.38,Married,Tech Lead,0.38,1
+EMP0110,25,1.76,Single,QA Engineer,1.96,1
+EMP0111,29,0.82,Married,Software Engineer,1.43,1
+EMP0112,55,1.2,Married,Tech Lead,1.2,0
+EMP0113,42,0.41,Single,Senior Software Engineer,0.53,1
+EMP0114,52,0.1,Single,Architect,0.16,1
+EMP0115,45,4.01,Single,Tech Lead,10.47,1
+EMP0116,51,1.63,Single,Engineering Manager,7.95,1
+EMP0117,26,1.42,Single,Software Engineer,1.66,0
+EMP0118,22,0.1,Single,Junior Developer,0.1,1
+EMP0119,24,0.13,Single,Junior Developer,0.43,1
+EMP0120,34,0.1,Married,Senior Software Engineer,0.45,0
+EMP0121,36,1.29,Married,Tech Lead,1.29,1
+EMP0122,35,0.69,Married,Director,0.69,1
+EMP0123,43,2.78,Single,Architect,5.28,1
+EMP0124,56,1.48,Single,Architect,3.28,1
+EMP0125,46,3.75,Married,Tech Lead,3.75,1
+EMP0126,54,0.79,Married,Tech Lead,0.79,1
+EMP0127,35,1.13,Single,Senior Software Engineer,2.35,1
+EMP0128,29,1.37,Married,Software Engineer,6.33,1
+EMP0129,48,0.57,Married,Senior Software Engineer,1.12,1
+EMP0130,25,0.84,Single,QA Engineer,3.0,1
+EMP0131,52,1.4,Married,Tech Lead,2.78,1
+EMP0132,50,2.05,Married,Engineering Manager,3.82,1
+EMP0133,57,5.26,Married,Engineering Manager,5.26,1
+EMP0134,27,0.33,Single,Software Engineer,5.0,1
+EMP0135,39,5.38,Married,Senior Software Engineer,6.17,1
+EMP0136,25,2.95,Single,Software Engineer,3.0,1
+EMP0137,30,5.2,Single,Tech Lead,8.0,1
+EMP0138,58,0.4,Divorced,Architect,0.4,1
+EMP0139,36,1.22,Married,Senior Software Engineer,1.22,0
+EMP0140,56,0.85,Married,Tech Lead,7.57,1
+EMP0141,55,0.1,Married,Engineering Manager,0.1,0
+EMP0142,46,0.9,Married,Tech Lead,7.39,1
+EMP0143,43,2.17,Married,Senior Software Engineer,2.17,1
+EMP0144,41,1.4,Married,Senior Software Engineer,15.0,1
+EMP0145,34,0.86,Married,Senior Software Engineer,4.83,1
+EMP0146,50,0.2,Married,Engineering Manager,0.2,1
+EMP0147,23,1.0,Single,Junior Developer,1.0,0
+EMP0148,29,0.63,Married,DevOps Engineer,1.4,1
+EMP0149,54,2.15,Single,Senior Software Engineer,3.78,0
+EMP0150,24,0.1,Single,Trainee Developer,0.1,1
+EMP0151,24,2.0,Married,Junior Developer,2.0,1
+EMP0152,53,1.52,Married,Architect,1.52,0
+EMP0153,52,2.66,Married,Senior Software Engineer,3.01,1
+EMP0154,40,3.4,Married,Tech Lead,6.7,1
+EMP0155,23,0.85,Single,Junior Developer,1.0,1
+EMP0156,30,2.88,Single,Senior Software Engineer,8.0,0
+EMP0157,31,0.4,Married,Senior QA Engineer,1.91,1
+EMP0158,38,0.6,Married,Tech Lead,3.01,0
+EMP0159,25,2.3,Single,DevOps Engineer,3.0,1
+EMP0160,42,0.21,Married,Tech Lead,0.21,1
+EMP0161,33,0.44,Married,Senior Software Engineer,0.44,1
+EMP0162,55,0.58,Married,Engineering Manager,0.58,1
+EMP0163,49,1.31,Married,Tech Lead,1.31,0
+EMP0164,57,1.15,Married,Senior Software Engineer,5.44,1
+EMP0165,56,0.29,Married,Tech Lead,9.24,1
+EMP0166,57,3.75,Married,Senior Software Engineer,5.53,1
+EMP0167,55,0.87,Married,Tech Lead,1.27,1
+EMP0168,46,2.37,Married,Architect,4.82,1
+EMP0169,55,4.94,Single,Tech Lead,4.94,1
+EMP0170,33,3.29,Married,Senior QA Engineer,3.95,1
+EMP0171,37,0.5,Married,Senior Software Engineer,2.02,1
+EMP0172,47,0.4,Single,Engineering Manager,7.78,1
+EMP0173,28,1.06,Single,QA Engineer,1.06,1
+EMP0174,44,0.17,Married,Engineering Manager,0.17,1
+EMP0175,38,1.31,Married,Tech Lead,2.47,1
+EMP0176,47,1.14,Married,Senior Software Engineer,1.14,1
+EMP0177,46,1.67,Married,Tech Lead,1.67,1
+EMP0178,56,1.51,Married,Senior Software Engineer,6.23,1
+EMP0179,56,0.16,Single,Senior Software Engineer,0.16,0
+EMP0180,37,1.08,Married,Director,4.39,1
+EMP0181,26,0.7,Married,Software Engineer,1.89,1
+EMP0182,39,0.1,Married,Senior Software Engineer,0.1,1
+EMP0183,45,0.6,Single,Director,4.8,1
+EMP0184,45,0.55,Married,Engineering Manager,0.55,0
+EMP0185,41,0.26,Married,Senior Software Engineer,5.33,0
+EMP0186,47,3.23,Single,Director,5.25,1
+EMP0187,44,0.38,Married,Director,15.0,1
+EMP0188,39,0.51,Married,Senior Software Engineer,5.08,0
+EMP0189,46,0.29,Married,Engineering Manager,0.29,1
+EMP0190,49,0.1,Married,Senior Software Engineer,5.74,1
+EMP0191,46,0.93,Married,Senior Software Engineer,1.58,1
+EMP0192,26,0.23,Single,Software Engineer,4.0,1
+EMP0193,34,1.79,Married,Senior Software Engineer,1.97,1
+EMP0194,55,1.47,Married,Architect,3.97,1
+EMP0195,49,3.63,Married,Architect,3.7,1
+EMP0196,57,0.52,Married,Architect,0.52,1
+EMP0197,52,1.22,Married,Senior Software Engineer,1.22,0
+EMP0198,57,0.43,Married,Architect,0.9,0
+EMP0199,48,0.9,Divorced,Engineering Manager,0.9,1
+EMP0200,56,0.1,Single,Senior Software Engineer,0.1,1

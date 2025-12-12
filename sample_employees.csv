@@ -1,0 +1,6 @@
+employee_id,age,time_at_current_role,marital_status,role,work_experience,wfh_available
+EMP001,28,1.5,Single,Software Engineer,3.0,1
+EMP002,35,3.0,Married,Senior Software Engineer,7.0,1
+EMP003,24,0.5,Single,Junior Developer,1.2,0
+EMP004,40,2.0,Married,Tech Lead,10.0,1
+EMP005,32,4.5,Single,QA Engineer,5.5,1
