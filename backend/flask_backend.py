@@ -10,7 +10,7 @@ import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
 import json
-
+import os
 app = Flask(__name__)
 CORS(app)  # Enable CORS for React frontend
 
@@ -872,6 +872,490 @@ def get_uploaded_analytics():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+
+@app.route('/api/training/upload-dataset', methods=['POST'])
+def upload_training_dataset():
+    """Upload dataset for custom model training"""
+    try:
+        if 'file' not in request.files:
+            return jsonify({'error': 'No file uploaded'}), 400
+
+        file = request.files['file']
+
+        if file.filename == '':
+            return jsonify({'error': 'No file selected'}), 400
+
+        if not file.filename.endswith('.csv'):
+            return jsonify({'error': 'File must be a CSV'}), 400
+
+        # Read CSV
+        df = pd.read_csv(file)
+
+        # Validate required columns
+        required_cols = ['age', 'time_at_current_role', 'marital_status', 'role',
+                         'work_experience', 'wfh_available', 'attrition']
+        missing_cols = [col for col in required_cols if col not in df.columns]
+
+        if missing_cols:
+            return jsonify({'error': f'Missing required columns: {", ".join(missing_cols)}'}), 400
+
+        # Check minimum sample size
+        MIN_SAMPLES = 100
+        if len(df) < MIN_SAMPLES:
+            return jsonify({
+                'error': 'insufficient_data',
+                'message': f'Dataset must have at least {MIN_SAMPLES} rows for reliable training. You have {len(df)} rows.',
+                'current_count': len(df),
+                'required_count': MIN_SAMPLES
+            }), 400
+
+        # Calculate demographics
+        demographics = {
+            'total_samples': len(df),
+            'attrition_rate': round(df['attrition'].mean() * 100, 2),
+            'will_leave': int(df['attrition'].sum()),
+            'will_stay': int((df['attrition'] == 0).sum()),
+
+            # Age distribution
+            'age_stats': {
+                'mean': round(df['age'].mean(), 1),
+                'min': int(df['age'].min()),
+                'max': int(df['age'].max())
+            },
+
+            # Experience distribution
+            'experience_stats': {
+                'mean': round(df['work_experience'].mean(), 1),
+                'min': round(df['work_experience'].min(), 1),
+                'max': round(df['work_experience'].max(), 1)
+            },
+
+            # By role
+            'by_role': {
+                role: {
+                    'count': int(group['attrition'].count()),
+                    'attrition_rate': round(float(group['attrition'].mean()), 3)
+                }
+                for role, group in df.groupby('role')
+            },
+
+            # By marital status
+            'by_marital_status': {
+                status: {
+                    'count': int(group['attrition'].count()),
+                    'attrition_rate': round(float(group['attrition'].mean()), 3)
+                }
+                for status, group in df.groupby('marital_status')
+            },
+
+            # WFH distribution
+            'wfh_distribution': {
+                'has_wfh': int((df['wfh_available'] == 1).sum()),
+                'no_wfh': int((df['wfh_available'] == 0).sum())
+            }
+        }
+
+        # Store in session (in production, use Redis or temp file)
+        import pickle
+        import os
+        temp_path = '/tmp/training_data.pkl'
+        with open(temp_path, 'wb') as f:
+            pickle.dump(df, f)
+
+        return jsonify({
+            'success': True,
+            'demographics': demographics,
+            'temp_path': temp_path
+        })
+
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/training/train-model', methods=['POST'])
+def train_custom_model():
+    """Train a custom model with uploaded data"""
+    try:
+        from sklearn.model_selection import train_test_split, cross_val_score
+        from sklearn.ensemble import RandomForestClassifier
+        from sklearn.metrics import (classification_report, accuracy_score,
+                                     confusion_matrix, roc_auc_score, roc_curve)
+        from sklearn.preprocessing import LabelEncoder
+        import pickle
+
+        # Load the uploaded dataset
+        temp_path = '/tmp/training_data.pkl'
+        if not os.path.exists(temp_path):
+            return jsonify({'error': 'No dataset found. Please upload data first.'}), 400
+
+        with open(temp_path, 'rb') as f:
+            df = pickle.load(f)
+
+        print(f"Training on {len(df)} samples...")
+
+        # Prepare features
+        df_model = df.copy()
+
+        # Encode categorical variables
+        custom_label_encoders = {}
+
+        le_marital = LabelEncoder()
+        df_model['marital_status_encoded'] = le_marital.fit_transform(df_model['marital_status'])
+        custom_label_encoders['marital_status'] = le_marital
+
+        le_role = LabelEncoder()
+        df_model['role_encoded'] = le_role.fit_transform(df_model['role'])
+        custom_label_encoders['role'] = le_role
+
+        # Select features
+        custom_feature_names = [
+            'age',
+            'time_at_current_role',
+            'marital_status_encoded',
+            'role_encoded',
+            'work_experience',
+            'wfh_available'
+        ]
+
+        X = df_model[custom_feature_names]
+        y = df_model['attrition']
+
+        # Check class balance
+        class_counts = y.value_counts()
+        minority_class_count = class_counts.min()
+
+        if minority_class_count < 10:
+            return jsonify({
+                'error': 'imbalanced_data',
+                'message': f'Not enough samples in minority class ({minority_class_count}). Need at least 10 samples of each class.',
+                'class_distribution': class_counts.to_dict()
+            }), 400
+
+        # Split data
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y, test_size=0.2, random_state=42, stratify=y
+        )
+
+        print(f"Train: {len(X_train)}, Test: {len(X_test)}")
+
+        # Train model
+        custom_model = RandomForestClassifier(
+            n_estimators=100,
+            max_depth=10,
+            min_samples_split=5,
+            random_state=42,
+            n_jobs=-1
+        )
+
+        custom_model.fit(X_train, y_train)
+
+        # Evaluate
+        y_pred = custom_model.predict(X_test)
+        y_pred_proba = custom_model.predict_proba(X_test)[:, 1]
+
+        accuracy = accuracy_score(y_test, y_pred)
+
+        # Confusion matrix
+        cm = confusion_matrix(y_test, y_pred)
+
+        # Classification report
+        report = classification_report(y_test, y_pred, output_dict=True)
+
+        # AUC score
+        try:
+            auc_score = roc_auc_score(y_test, y_pred_proba)
+        except:
+            auc_score = 0.5
+
+        # Cross-validation
+        cv_scores = cross_val_score(custom_model, X, y, cv=min(5, len(df) // 20), scoring='accuracy')
+
+        # Feature importance
+        feature_importance = []
+        for feature, importance in zip(custom_feature_names, custom_model.feature_importances_):
+            feature_importance.append({
+                'feature': feature,
+                'importance': round(float(importance), 4)
+            })
+        feature_importance.sort(key=lambda x: x['importance'], reverse=True)
+
+        # Save custom model
+        custom_model_data = {
+            'model': custom_model,
+            'label_encoders': custom_label_encoders,
+            'feature_names': custom_feature_names,
+            'metrics': {
+                'accuracy': accuracy,
+                'auc_roc': auc_score
+            },
+            'training_info': {
+                'samples': len(df),
+                'features': len(custom_feature_names),
+                'trained_at': datetime.now().isoformat()
+            }
+        }
+
+        custom_model_path = '/tmp/custom_attrition_model.pkl'
+        with open(custom_model_path, 'wb') as f:
+            pickle.dump(custom_model_data, f)
+
+        # Check if accuracy is acceptable
+        warning = None
+        if accuracy < 0.65:
+            warning = f"Model accuracy ({accuracy * 100:.1f}%) is below recommended threshold (65%). Consider collecting more data or improving data quality."
+
+        return jsonify({
+            'success': True,
+            'metrics': {
+                'accuracy': round(accuracy, 4),
+                'auc_roc': round(auc_score, 4),
+                'cv_mean': round(cv_scores.mean(), 4),
+                'cv_std': round(cv_scores.std(), 4),
+
+                'confusion_matrix': {
+                    'true_negative': int(cm[0][0]),
+                    'false_positive': int(cm[0][1]),
+                    'false_negative': int(cm[1][0]),
+                    'true_positive': int(cm[1][1])
+                },
+
+                'classification_report': {
+                    'stay': {
+                        'precision': round(report['0']['precision'], 3),
+                        'recall': round(report['0']['recall'], 3),
+                        'f1_score': round(report['0']['f1-score'], 3)
+                    },
+                    'leave': {
+                        'precision': round(report['1']['precision'], 3),
+                        'recall': round(report['1']['recall'], 3),
+                        'f1_score': round(report['1']['f1-score'], 3)
+                    }
+                },
+
+                'feature_importance': feature_importance,
+
+                'training_data': {
+                    'total_samples': len(df),
+                    'train_samples': len(X_train),
+                    'test_samples': len(X_test),
+                    'features_used': len(custom_feature_names)
+                }
+            },
+            'model_path': custom_model_path,
+            'warning': warning
+        })
+
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/training/save-model', methods=['POST'])
+def save_trained_model():
+    """Save the trained model with a custom name"""
+    try:
+        data = request.json
+        model_name = data.get('model_name', 'custom_model')
+
+        # Sanitize filename
+        import re
+        model_name = re.sub(r'[^\w\-_]', '_', model_name)
+
+        # Create models directory if it doesn't exist
+        models_dir = '../models/custom'
+        os.makedirs(models_dir, exist_ok=True)
+
+        # Copy from temp to permanent location
+        temp_path = '/tmp/custom_attrition_model.pkl'
+        if not os.path.exists(temp_path):
+            return jsonify({'error': 'No trained model found'}), 404
+
+        # Create filename with timestamp
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        filename = f"{model_name}_{timestamp}.pkl"
+        save_path = os.path.join(models_dir, filename)
+
+        # Copy file
+        import shutil
+        shutil.copy(temp_path, save_path)
+
+        # Save metadata
+        import pickle
+        with open(temp_path, 'rb') as f:
+            model_data = pickle.load(f)
+
+        metadata = {
+            'model_name': model_name,
+            'filename': filename,
+            'saved_at': datetime.now().isoformat(),
+            'metrics': model_data.get('metrics', {}),
+            'training_info': model_data.get('training_info', {})
+        }
+
+        metadata_path = os.path.join(models_dir, f"{model_name}_{timestamp}_meta.json")
+        with open(metadata_path, 'w') as f:
+            json.dump(metadata, f, indent=2)
+
+        return jsonify({
+            'success': True,
+            'model_name': model_name,
+            'filename': filename,
+            'save_path': save_path
+        })
+
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/training/list-models', methods=['GET'])
+def list_custom_models():
+    """List all trained custom models"""
+    try:
+        models_dir = '../models/custom'
+
+        if not os.path.exists(models_dir):
+            return jsonify({'models': []})
+
+        models = []
+
+        # Get all .pkl files
+        for filename in os.listdir(models_dir):
+            if filename.endswith('.pkl'):
+                filepath = os.path.join(models_dir, filename)
+
+                # Try to load metadata
+                meta_filename = filename.replace('.pkl', '_meta.json')
+                meta_path = os.path.join(models_dir, meta_filename)
+
+                if os.path.exists(meta_path):
+                    with open(meta_path, 'r') as f:
+                        metadata = json.load(f)
+                else:
+                    # Fallback if no metadata
+                    metadata = {
+                        'model_name': filename.replace('.pkl', ''),
+                        'filename': filename,
+                        'saved_at': datetime.fromtimestamp(os.path.getmtime(filepath)).isoformat(),
+                        'metrics': {},
+                        'training_info': {}
+                    }
+
+                # Get file size
+                file_size = os.path.getsize(filepath)
+                metadata['file_size'] = file_size
+                metadata['file_size_mb'] = round(file_size / (1024 * 1024), 2)
+
+                models.append(metadata)
+
+        # Sort by saved_at (newest first)
+        models.sort(key=lambda x: x['saved_at'], reverse=True)
+
+        return jsonify({'models': models})
+
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/training/load-model/<model_filename>', methods=['POST'])
+def load_custom_model(model_filename):
+    """Load a custom model for predictions"""
+    global model, label_encoders, feature_names
+
+    try:
+        models_dir = '../models/custom'
+        model_path = os.path.join(models_dir, model_filename)
+
+        if not os.path.exists(model_path):
+            return jsonify({'error': 'Model file not found'}), 404
+
+        # Load the custom model
+        import pickle
+        with open(model_path, 'rb') as f:
+            custom_model_data = pickle.load(f)
+
+        # Replace global model
+        model = custom_model_data['model']
+        label_encoders = custom_model_data['label_encoders']
+        feature_names = custom_model_data['feature_names']
+
+        return jsonify({
+            'success': True,
+            'message': f'Model {model_filename} loaded successfully',
+            'model_info': {
+                'filename': model_filename,
+                'features': len(feature_names),
+                'metrics': custom_model_data.get('metrics', {})
+            }
+        })
+
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/training/delete-model/<model_filename>', methods=['DELETE'])
+def delete_custom_model(model_filename):
+    """Delete a custom model"""
+    try:
+        models_dir = '../models/custom'
+        model_path = os.path.join(models_dir, model_filename)
+        meta_path = model_path.replace('.pkl', '_meta.json')
+
+        if os.path.exists(model_path):
+            os.remove(model_path)
+
+        if os.path.exists(meta_path):
+            os.remove(meta_path)
+
+        return jsonify({
+            'success': True,
+            'message': f'Model {model_filename} deleted successfully'
+        })
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/models/current', methods=['GET'])
+def get_current_model():
+    """Get info about currently loaded model"""
+    try:
+        return jsonify({
+            'model_type': 'custom' if '/custom/' in MODEL_PATH else 'default',
+            'features': len(feature_names),
+            'feature_names': feature_names
+        })
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/training/download-model', methods=['GET'])
+def download_custom_model():
+    """Download the trained custom model"""
+    try:
+        from flask import send_file
+
+        model_path = '/tmp/custom_attrition_model.pkl'
+        if not os.path.exists(model_path):
+            return jsonify({'error': 'No trained model found'}), 404
+
+        return send_file(
+            model_path,
+            mimetype='application/octet-stream',
+            as_attachment=True,
+            download_name='custom_attrition_model.pkl'
+        )
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/api/predict/employee/<employee_id>', methods=['GET'])
 def predict_by_employee_id(employee_id):

@@ -54,6 +54,19 @@ const [loadingInsights, setLoadingInsights] = useState(false);
 
 const [existingEmployeeFactors, setExistingEmployeeFactors] = useState(null);
 const [singleEmployeeFactors, setSingleEmployeeFactors] = useState(null);
+
+// Training state
+const [trainingTab, setTrainingTab] = useState('upload');
+const [trainingFile, setTrainingFile] = useState(null);
+const [trainingDemographics, setTrainingDemographics] = useState(null);
+const [trainingMetrics, setTrainingMetrics] = useState(null);
+const [trainingLoading, setTrainingLoading] = useState(false);
+
+// Model management state
+const [customModels, setCustomModels] = useState([]);
+const [currentModel, setCurrentModel] = useState(null);
+const [showModelManager, setShowModelManager] = useState(false);
+
   const [singleEmployee, setSingleEmployee] = useState({
     employee_name: '',
     age: 28,
@@ -215,6 +228,180 @@ const fetchSingleEmployeeFactors = async (employeeData) => {
     }
   };
 
+const handleTrainingUpload = async (e) => {
+  e.preventDefault();
+
+  if (!trainingFile) {
+    alert('Please select a CSV file');
+    return;
+  }
+
+  setTrainingLoading(true);
+
+  const formData = new FormData();
+  formData.append('file', trainingFile);
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/training/upload-dataset`, {
+      method: 'POST',
+      body: formData
+    });
+
+    const data = await response.json();
+
+    if (response.status === 400 && data.error === 'insufficient_data') {
+      alert(`⚠️ Insufficient Data\n\n${data.message}\n\nCurrent: ${data.current_count} rows\nRequired: ${data.required_count} rows`);
+      setTrainingLoading(false);
+      return;
+    }
+
+    if (!response.ok) {
+      throw new Error(data.error || 'Upload failed');
+    }
+
+    setTrainingDemographics(data.demographics);
+    setTrainingTab('review');
+    alert('✓ Dataset uploaded successfully! Review the demographics below.');
+
+  } catch (error) {
+    console.error('Error uploading training data:', error);
+    alert('Error uploading file: ' + error.message);
+  } finally {
+    setTrainingLoading(false);
+  }
+};
+
+const handleTrainModel = async () => {
+  setTrainingLoading(true);
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/training/train-model`, {
+      method: 'POST'
+    });
+
+    const data = await response.json();
+
+    if (response.status === 400 && data.error === 'imbalanced_data') {
+      alert(`⚠️ Imbalanced Data\n\n${data.message}`);
+      setTrainingLoading(false);
+      return;
+    }
+
+    if (!response.ok) {
+      throw new Error(data.error || 'Training failed');
+    }
+
+    setTrainingMetrics(data.metrics);
+    setTrainingTab('results');
+
+    if (data.warning) {
+      alert(`⚠️ Warning\n\n${data.warning}`);
+    } else {
+      alert('✓ Model trained successfully!');
+    }
+
+  } catch (error) {
+    console.error('Error training model:', error);
+    alert('Error training model: ' + error.message);
+  } finally {
+    setTrainingLoading(false);
+  }
+};
+
+const handleDownloadModel = () => {
+  window.open(`${API_BASE_URL}/training/download-model`, '_blank');
+};
+
+const fetchCustomModels = async () => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/training/list-models`);
+    const data = await response.json();
+    setCustomModels(data.models || []);
+  } catch (error) {
+    console.error('Error fetching models:', error);
+  }
+};
+
+const handleSaveModel = async () => {
+  const modelName = prompt('Enter a name for this model:');
+  if (!modelName) return;
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/training/save-model`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model_name: modelName })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || 'Failed to save model');
+    }
+
+    alert(`✓ Model saved as: ${data.filename}`);
+    fetchCustomModels();
+
+  } catch (error) {
+    console.error('Error saving model:', error);
+    alert('Error saving model: ' + error.message);
+  }
+};
+
+const handleLoadModel = async (filename) => {
+  if (!window.confirm(`Load model "${filename}"? This will replace the current model for predictions.`)) {
+    return;
+  }
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/training/load-model/${filename}`, {
+      method: 'POST'
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || 'Failed to load model');
+    }
+
+    alert(`✓ ${data.message}`);
+    setCurrentModel(data.model_info);
+
+  } catch (error) {
+    console.error('Error loading model:', error);
+    alert('Error loading model: ' + error.message);
+  }
+};
+
+const handleDeleteModel = async (filename) => {
+  if (!window.confirm(`Delete model "${filename}"? This cannot be undone.`)) {
+    return;
+  }
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/training/delete-model/${filename}`, {
+      method: 'DELETE'
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || 'Failed to delete model');
+    }
+
+    alert('✓ Model deleted successfully');
+    fetchCustomModels();
+
+  } catch (error) {
+    console.error('Error deleting model:', error);
+    alert('Error deleting model: ' + error.message);
+  }
+};
+
+useEffect(() => {
+  fetchCustomModels();
+}, []);
+
   const fetchUploadedAnalytics = async () => {
     try {
       const response = await fetch(`${API_BASE_URL}/analytics/uploaded`);
@@ -325,6 +512,7 @@ const fetchRetentionStrategies = async (employeeId) => {
   }
 };
 
+
 const fetchClusteringData = async () => {
   setLoadingInsights(true);
   try {
@@ -426,6 +614,340 @@ const handleEmployeeIdSearch = async (e) => {
       alert('Error downloading sample CSV');
     }
   };
+
+const renderTraining = () => (
+
+  <div className="training-container">
+    <div className="training-header">
+      <h1>🎓 Train Your Custom Model</h1>
+      <p className="training-subtitle">Upload your historical data to train a personalized attrition prediction model</p>
+    </div>
+
+    <div className="training-tabs">
+      <button
+        className={trainingTab === 'upload' ? 'training-tab active' : 'training-tab'}
+        onClick={() => setTrainingTab('upload')}
+      >
+        1️⃣ Upload Data
+      </button>
+      <button
+        className={trainingTab === 'review' ? 'training-tab active' : 'training-tab'}
+        disabled={!trainingDemographics}
+      >
+        2️⃣ Review Demographics
+      </button>
+      <button
+        className={trainingTab === 'results' ? 'training-tab active' : 'training-tab'}
+        disabled={!trainingMetrics}
+      >
+        3️⃣ Training Results
+      </button>
+    </div>
+
+    {trainingTab === 'upload' && (
+      <div className="training-upload-section">
+        <div className="upload-box-large">
+          <div className="upload-icon-large">📊</div>
+          <h2>Upload Training Dataset</h2>
+          <p>Upload a CSV file with historical employee data including the <strong>attrition</strong> column (0 = stayed, 1 = left)</p>
+
+          <div className="requirements-box">
+            <h4>📋 Required Columns:</h4>
+            <ul>
+              <li>employee_id</li>
+              <li>age</li>
+              <li>time_at_current_role</li>
+              <li>marital_status</li>
+              <li>role</li>
+              <li>work_experience</li>
+              <li>wfh_available</li>
+              <li><strong>attrition</strong> (0 or 1)</li>
+            </ul>
+
+            <div className="requirement-note">
+              <span className="note-icon">⚠️</span>
+              <strong>Minimum 100 samples required</strong> for reliable training
+            </div>
+          </div>
+
+          <input
+            type="file"
+            accept=".csv"
+            onChange={(e) => setTrainingFile(e.target.files[0])}
+            id="training-upload-input"
+            style={{display: 'none'}}
+          />
+          <label htmlFor="training-upload-input" className="btn-upload-large">
+            {trainingFile ? `📄 ${trainingFile.name}` : '📁 Choose Training File'}
+          </label>
+
+          {trainingFile && (
+            <button onClick={handleTrainingUpload} className="btn-process-large" disabled={trainingLoading}>
+              {trainingLoading ? '⏳ Analyzing...' : '📈 Analyze Dataset'}
+            </button>
+          )}
+        </div>
+      </div>
+    )}
+
+    {trainingTab === 'review' && trainingDemographics && (
+      <div className="demographics-section">
+        <h2>📊 Dataset Demographics</h2>
+
+        <div className="metrics-row">
+          <div className="metric-box primary">
+            <h3>Total Samples</h3>
+            <div className="metric-big-value">{trainingDemographics.total_samples}</div>
+          </div>
+          <div className="metric-box danger">
+            <h3>Attrition Rate</h3>
+            <div className="metric-big-value">{trainingDemographics.attrition_rate}%</div>
+          </div>
+          <div className="metric-box warning">
+            <h3>Will Leave</h3>
+            <div className="metric-big-value">{trainingDemographics.will_leave}</div>
+          </div>
+          <div className="metric-box success">
+            <h3>Will Stay</h3>
+            <div className="metric-big-value">{trainingDemographics.will_stay}</div>
+          </div>
+        </div>
+
+        <div className="demo-grid">
+          <div className="demo-card">
+            <h3>👥 Age Distribution</h3>
+            <div className="stat-row">
+              <span>Average:</span>
+              <strong>{trainingDemographics.age_stats.mean} years</strong>
+            </div>
+            <div className="stat-row">
+              <span>Range:</span>
+              <strong>{trainingDemographics.age_stats.min} - {trainingDemographics.age_stats.max}</strong>
+            </div>
+          </div>
+
+          <div className="demo-card">
+            <h3>💼 Experience Distribution</h3>
+            <div className="stat-row">
+              <span>Average:</span>
+              <strong>{trainingDemographics.experience_stats.mean} years</strong>
+            </div>
+            <div className="stat-row">
+              <span>Range:</span>
+              <strong>{trainingDemographics.experience_stats.min} - {trainingDemographics.experience_stats.max}</strong>
+            </div>
+          </div>
+
+          <div className="demo-card">
+            <h3>🏠 WFH Distribution</h3>
+            <div className="stat-row">
+              <span>Has WFH:</span>
+              <strong>{trainingDemographics.wfh_distribution.has_wfh}</strong>
+            </div>
+            <div className="stat-row">
+              <span>No WFH:</span>
+              <strong>{trainingDemographics.wfh_distribution.no_wfh}</strong>
+            </div>
+          </div>
+        </div>
+
+        <div className="training-action">
+          <button onClick={handleTrainModel} className="btn-train-large" disabled={trainingLoading}>
+            {trainingLoading ? '🔄 Training Model...' : '🚀 Start Training'}
+          </button>
+          <p className="training-note">This may take 30-60 seconds depending on dataset size</p>
+        </div>
+      </div>
+    )}
+
+    {trainingTab === 'results' && trainingMetrics && (
+      <div className="results-section">
+            <div className="results-header">
+              <h2>✅ Training Complete!</h2>
+              <div className="header-actions">
+                <button onClick={handleSaveModel} className="btn-save">
+                  💾 Save Model
+                </button>
+                <button onClick={handleDownloadModel} className="btn-download">
+                  📥 Download
+                </button>
+              </div>
+            </div>
+
+        <div className="metrics-grid">
+          <div className="metric-card accuracy">
+            <h3>🎯 Accuracy</h3>
+            <div className="metric-huge">{(trainingMetrics.accuracy * 100).toFixed(2)}%</div>
+            <p className="metric-detail">Overall correctness</p>
+          </div>
+
+          <div className="metric-card auc">
+            <h3>📈 AUC-ROC</h3>
+            <div className="metric-huge">{(trainingMetrics.auc_roc * 100).toFixed(2)}%</div>
+            <p className="metric-detail">Model discrimination ability</p>
+          </div>
+
+          <div className="metric-card cv">
+            <h3>🔄 Cross-Validation</h3>
+            <div className="metric-huge">{(trainingMetrics.cv_mean * 100).toFixed(2)}%</div>
+            <p className="metric-detail">±{(trainingMetrics.cv_std * 100).toFixed(2)}%</p>
+          </div>
+        </div>
+
+        <div className="confusion-matrix-section">
+          <h3>🎲 Confusion Matrix</h3>
+          <div className="cm-grid">
+            <div className="cm-cell tn">
+              <span className="cm-label">True Negative</span>
+              <span className="cm-value">{trainingMetrics.confusion_matrix.true_negative}</span>
+              <span className="cm-desc">Correctly predicted to stay</span>
+            </div>
+            <div className="cm-cell fp">
+              <span className="cm-label">False Positive</span>
+              <span className="cm-value">{trainingMetrics.confusion_matrix.false_positive}</span>
+              <span className="cm-desc">Predicted leave, actually stayed</span>
+            </div>
+            <div className="cm-cell fn">
+              <span className="cm-label">False Negative</span>
+              <span className="cm-value">{trainingMetrics.confusion_matrix.false_negative}</span>
+              <span className="cm-desc">Predicted stay, actually left</span>
+            </div>
+            <div className="cm-cell tp">
+              <span className="cm-label">True Positive</span>
+              <span className="cm-value">{trainingMetrics.confusion_matrix.true_positive}</span>
+              <span className="cm-desc">Correctly predicted to leave</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="classification-report">
+          <h3>📊 Classification Report</h3>
+          <table className="report-table">
+            <thead>
+              <tr>
+                <th>Class</th>
+                <th>Precision</th>
+                <th>Recall</th>
+                <th>F1-Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Stay (0)</strong></td>
+                <td>{(trainingMetrics.classification_report.stay.precision * 100).toFixed(1)}%</td>
+                <td>{(trainingMetrics.classification_report.stay.recall * 100).toFixed(1)}%</td>
+                <td>{(trainingMetrics.classification_report.stay.f1_score * 100).toFixed(1)}%</td>
+              </tr>
+              <tr>
+                <td><strong>Leave (1)</strong></td>
+                <td>{(trainingMetrics.classification_report.leave.precision * 100).toFixed(1)}%</td>
+                <td>{(trainingMetrics.classification_report.leave.recall * 100).toFixed(1)}%</td>
+                <td>{(trainingMetrics.classification_report.leave.f1_score * 100).toFixed(1)}%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div className="feature-importance-section">
+          <h3>⭐ Feature Importance</h3>
+          <div className="feature-bars">
+            {trainingMetrics.feature_importance.map((item, idx) => (
+              <div key={idx} className="feature-bar-item">
+                <span className="feature-name">{item.feature}</span>
+                <div className="feature-bar-bg">
+                  <div
+                    className="feature-bar-fill"
+                    style={{width: `${item.importance * 100}%`}}
+                  ></div>
+                </div>
+                <span className="feature-value">{(item.importance * 100).toFixed(1)}%</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="training-info">
+          <h3>ℹ️ Training Information</h3>
+          <div className="info-grid">
+            <div><strong>Total Samples:</strong> {trainingMetrics.training_data.total_samples}</div>
+            <div><strong>Training Set:</strong> {trainingMetrics.training_data.train_samples}</div>
+            <div><strong>Test Set:</strong> {trainingMetrics.training_data.test_samples}</div>
+            <div><strong>Features Used:</strong> {trainingMetrics.training_data.features_used}</div>
+          </div>
+        </div>
+      </div>
+    )}
+
+{/* Add after all training tabs */}
+<div className="model-manager-section">
+  <div className="manager-header">
+    <h2>📦 Your Trained Models</h2>
+    <button onClick={fetchCustomModels} className="btn-refresh">
+      🔄 Refresh
+    </button>
+  </div>
+
+  {customModels.length === 0 ? (
+    <div className="empty-state">
+      <p>No custom models saved yet. Train a model and save it to see it here.</p>
+    </div>
+  ) : (
+    <div className="models-grid">
+      {customModels.map((model, idx) => (
+        <div key={idx} className="model-card">
+          <div className="model-header">
+            <h3>{model.model_name}</h3>
+            <span className="model-date">
+              {new Date(model.saved_at).toLocaleDateString()}
+            </span>
+          </div>
+
+          <div className="model-stats">
+            <div className="stat">
+              <span className="stat-label">Accuracy</span>
+              <span className="stat-value">
+                {model.metrics?.accuracy ? (model.metrics.accuracy * 100).toFixed(1) : 'N/A'}%
+              </span>
+            </div>
+            <div className="stat">
+              <span className="stat-label">AUC-ROC</span>
+              <span className="stat-value">
+                {model.metrics?.auc_roc ? (model.metrics.auc_roc * 100).toFixed(1) : 'N/A'}%
+              </span>
+            </div>
+            <div className="stat">
+              <span className="stat-label">Samples</span>
+              <span className="stat-value">
+                {model.training_info?.samples || 'N/A'}
+              </span>
+            </div>
+            <div className="stat">
+              <span className="stat-label">Size</span>
+              <span className="stat-value">{model.file_size_mb} MB</span>
+            </div>
+          </div>
+
+          <div className="model-actions">
+            <button
+              onClick={() => handleLoadModel(model.filename)}
+              className="btn-load"
+            >
+              ✓ Use This Model
+            </button>
+            <button
+              onClick={() => handleDeleteModel(model.filename)}
+              className="btn-delete"
+            >
+              🗑️
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+  )}
+</div>
+  </div>
+);
 
   // Render functions continue on next file...
   const renderHome = () => (
@@ -1491,14 +2013,23 @@ const renderInsights = () => (
           <button className={activeTab === 'single' || activeTab === 'department' ? 'nav-item active' : 'nav-item'} onClick={() => setActiveTab('single')}>🎯 Prediction</button>
           <button className={activeTab === 'insights' ? 'nav-item active' : 'nav-item'} onClick={() => setActiveTab('insights')}>💡 Insights</button>
           <button className={activeTab === 'reports' ? 'nav-item active' : 'nav-item'} onClick={() => setActiveTab('reports')}>📊 Reports</button>
+          <button className={activeTab === 'training' ? 'nav-item active' : 'nav-item'} onClick={() => setActiveTab('training')}> 🎓 Train Model </button>
         </nav>
       </div>
+
+
       <div className="main-content">
         <header className="top-header">
           <h1>Employee Turnover Prediction</h1>
           <div className="header-actions">
             <button className="btn-header">⚙️ Settings</button>
             <button className="btn-header">👤 Profile</button>
+                      <div className="current-model-indicator">
+      <span className="model-icon">🤖</span>
+      <span className="model-text">
+        Model: {currentModel ? currentModel.filename : 'Default'}
+      </span>
+    </div>
           </div>
         </header>
         <div className="content-area">
@@ -1506,6 +2037,7 @@ const renderInsights = () => (
           {(activeTab === 'single' || activeTab === 'department') && renderPrediction()}
           {activeTab === 'insights' && renderInsights()}
           {activeTab === 'reports' && renderReports()}
+          {activeTab === 'training' && renderTraining()}
         </div>
       </div>
       {renderModal()}
