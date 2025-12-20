@@ -1301,6 +1301,139 @@ def load_custom_model(model_filename):
         return jsonify({'error': str(e)}), 500
 
 
+@app.route('/api/analytics/role-wise-attrition', methods=['GET'])
+def get_role_wise_attrition():
+    """Get attrition rates by role"""
+    global last_uploaded_data
+
+    if last_uploaded_data is None:
+        return jsonify({'error': 'No data uploaded yet'}), 404
+
+    try:
+        df = pd.DataFrame(last_uploaded_data)
+
+        # Get predictions for all employees
+        role_stats = []
+
+        for role in df['role'].unique():
+            role_df = df[df['role'] == role]
+
+            # Predict for each employee in this role
+            probabilities = []
+            for idx, row in role_df.iterrows():
+                emp_data = row.to_dict()
+                pred = predict_single(emp_data)
+                probabilities.append(pred['attrition_probability'])
+
+            avg_prob = np.mean(probabilities)
+            high_risk_count = sum(1 for p in probabilities if p >= 50)
+
+            role_stats.append({
+                'role': role,
+                'total_employees': len(role_df),
+                'avg_attrition_rate': round(avg_prob, 2),
+                'high_risk_count': high_risk_count,
+                'high_risk_percentage': round((high_risk_count / len(role_df)) * 100, 1)
+            })
+
+        # Sort by attrition rate descending
+        role_stats.sort(key=lambda x: x['avg_attrition_rate'], reverse=True)
+
+        return jsonify({
+            'role_wise_stats': role_stats
+        })
+
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/analytics/top-risk-by-timeframe', methods=['POST'])
+def get_top_risk_by_timeframe():
+    """Get top risk employees for a specific timeframe"""
+    global last_uploaded_data
+
+    if last_uploaded_data is None:
+        return jsonify({'error': 'No data uploaded yet'}), 404
+
+    try:
+        data = request.json
+        start_quarter = data.get('start_quarter')  # Format: "2024-Q1"
+        end_quarter = data.get('end_quarter')  # Format: "2024-Q2"
+
+        # Parse quarters
+        def parse_quarter(q_str):
+            year, quarter = q_str.split('-Q')
+            return int(year), int(quarter)
+
+        start_year, start_q = parse_quarter(start_quarter)
+        end_year, end_q = parse_quarter(end_quarter)
+
+        # Calculate quarters ahead from now
+        current_year = datetime.now().year
+        current_quarter = ((datetime.now().month - 1) // 3) + 1
+
+        # Calculate start and end quarters from now
+        start_quarters_ahead = ((start_year - current_year) * 4) + (start_q - current_quarter)
+        end_quarters_ahead = ((end_year - current_year) * 4) + (end_q - current_quarter)
+
+        # Project employees to the middle of the timeframe
+        target_quarters_ahead = (start_quarters_ahead + end_quarters_ahead) / 2
+        years_forward = target_quarters_ahead * 0.25
+
+        df = pd.DataFrame(last_uploaded_data)
+
+        # Project employee data to future timeframe
+        future_df = df.copy()
+        future_df['age'] = future_df['age'] + years_forward
+        future_df['work_experience'] = future_df['work_experience'] + years_forward
+        future_df['time_at_current_role'] = future_df['time_at_current_role'] + years_forward
+
+        # Get predictions for projected timeframe
+        employees_with_risk = []
+
+        for idx, row in future_df.iterrows():
+            emp_data = row.to_dict()
+            pred = predict_single(emp_data)
+
+            employees_with_risk.append({
+                'employee_id': emp_data['employee_id'],
+                'role': emp_data['role'],
+                'age': int(emp_data['age']),
+                'work_experience': round(emp_data['work_experience'], 1),
+                'time_at_current_role': round(emp_data['time_at_current_role'], 1),
+                'attrition_probability': pred['attrition_probability'],
+                'risk_level': pred['risk_level']
+            })
+
+        # Sort by risk and get top 10
+        employees_with_risk.sort(key=lambda x: x['attrition_probability'], reverse=True)
+        top_10 = employees_with_risk[:10]
+
+        # Calculate summary stats
+        all_probs = [e['attrition_probability'] for e in employees_with_risk]
+        high_risk_count = sum(1 for p in all_probs if p >= 50)
+
+        return jsonify({
+            'timeframe': {
+                'start': start_quarter,
+                'end': end_quarter,
+                'years_ahead': round(years_forward, 2)
+            },
+            'top_risk_employees': top_10,
+            'summary': {
+                'total_employees': len(employees_with_risk),
+                'high_risk_count': high_risk_count,
+                'avg_attrition_probability': round(np.mean(all_probs), 2)
+            }
+        })
+
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return jsonify({'error': str(e)}), 500
+
 @app.route('/api/training/delete-model/<model_filename>', methods=['DELETE'])
 def delete_custom_model(model_filename):
     """Delete a custom model"""

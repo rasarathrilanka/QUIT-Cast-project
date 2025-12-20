@@ -67,6 +67,15 @@ const [customModels, setCustomModels] = useState([]);
 const [currentModel, setCurrentModel] = useState(null);
 const [showModelManager, setShowModelManager] = useState(false);
 
+// Role-wise stats
+const [roleWiseStats, setRoleWiseStats] = useState(null);
+
+// Timeframe selector for top risk
+const [selectedTimeframe, setSelectedTimeframe] = useState({
+  start: '2025-Q1',
+  end: '2025-Q2'
+});
+const [timeframeTopRisk, setTimeframeTopRisk] = useState(null);
   const [singleEmployee, setSingleEmployee] = useState({
     employee_name: '',
     age: 28,
@@ -83,6 +92,52 @@ const [showModelManager, setShowModelManager] = useState(false);
     fetchUploadedAnalytics();
   }, []);
 
+const fetchRoleWiseStats = async () => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/analytics/role-wise-attrition`);
+    const data = await response.json();
+    setRoleWiseStats(data.role_wise_stats);
+  } catch (error) {
+    console.error('Error fetching role-wise stats:', error);
+  }
+};
+
+const fetchTimeframeTopRisk = async (start, end) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/analytics/top-risk-by-timeframe`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        start_quarter: start,
+        end_quarter: end
+      })
+    });
+    const data = await response.json();
+    setTimeframeTopRisk(data);
+  } catch (error) {
+    console.error('Error fetching timeframe top risk:', error);
+  }
+};
+
+const handleTimeframeChange = (field, value) => {
+  const newTimeframe = { ...selectedTimeframe, [field]: value };
+  setSelectedTimeframe(newTimeframe);
+  fetchTimeframeTopRisk(newTimeframe.start, newTimeframe.end);
+};
+
+// Generate quarter options for next 5 years
+const generateQuarterOptions = () => {
+  const options = [];
+  const currentYear = new Date().getFullYear();
+
+  for (let year = currentYear; year <= currentYear + 5; year++) {
+    for (let q = 1; q <= 4; q++) {
+      options.push(`${year}-Q${q}`);
+    }
+  }
+
+  return options;
+};
   const fetchOptions = async () => {
     try {
       const response = await fetch(`${API_BASE_URL}/options/all`);
@@ -191,42 +246,41 @@ const fetchSingleEmployeeFactors = async (employeeData) => {
   }
 };
 
-  const handleCsvUpload = async (e) => {
-    e.preventDefault();
+const handleCsvUpload = async (e) => {
+  e.preventDefault();
 
-    if (!csvFile) {
-      alert('Please select a CSV file');
-      return;
-    }
+  if (!csvFile) {
+    alert('Please select a CSV file');
+    return;
+  }
 
-    setUploadLoading(true);
+  setUploadLoading(true);
 
-    try {
-      const formData = new FormData();
-      formData.append('file', csvFile);
+  const formData = new FormData();
+  formData.append('file', csvFile);
 
-      const response = await fetch(`${API_BASE_URL}/upload/csv`, {
-        method: 'POST',
-        body: formData
-      });
+  try {
+    const response = await fetch(`${API_BASE_URL}/upload/csv`, {
+      method: 'POST',
+      body: formData
+    });
 
-      const data = await response.json();
+    const data = await response.json();
+    setCsvResults(data);
+    setSelectedYear(data.years[0].year);
 
-      if (response.ok) {
-        setCsvResults(data);
-        setSelectedYear(data.years[0].year);
-        fetchUploadedAnalytics();
-        alert('CSV uploaded successfully! View analytics on Home page.');
-      } else {
-        alert(`Error: ${data.error}`);
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      alert('Error uploading CSV');
-    } finally {
-      setUploadLoading(false);
-    }
-  };
+    await fetchUploadedAnalytics();
+    await fetchRoleWiseStats();  // NEW
+    await fetchTimeframeTopRisk(selectedTimeframe.start, selectedTimeframe.end);  // NEW
+
+    alert('✓ Data uploaded and analyzed successfully!');
+  } catch (error) {
+    console.error('Error uploading CSV:', error);
+    alert('Error uploading file');
+  } finally {
+    setUploadLoading(false);
+  }
+};
 
 const handleTrainingUpload = async (e) => {
   e.preventDefault();
@@ -1021,24 +1075,132 @@ const renderTraining = () => (
             </div>
           </div>
 
-          <div className="section">
-            <h2 className="section-title">🚨 Top 10 High Risk Employees</h2>
-            <div className="risk-grid">
-              {uploadedAnalytics.top_risk.slice(0, 10).map((emp, idx) => (
-                <div key={idx} className="risk-card" onClick={() => showEmployeeFactors(emp.employee_id)} style={{cursor: 'pointer'}}>
-                  <div className="risk-rank">#{idx + 1}</div>
-                  <div className="risk-card-content">
-                    <strong className="employee-id">{emp.employee_id}</strong>
-                    <span className="employee-role">{emp.role}</span>
-                    <span className="employee-details">Age: {emp.age} • {emp.work_experience}yr exp</span>
-                  </div>
-                  <div className="risk-percentage" style={{backgroundColor: emp.attrition_probability >= 50 ? COLORS.veryHighRisk : COLORS.highRisk}}>
-                    {emp.attrition_probability.toFixed(1)}%
-                  </div>
-                </div>
-              ))}
+          {/* NEW: Role-wise Attrition Section */}
+{roleWiseStats && (
+  <div className="section">
+    <h2 className="section-title">👥 Role-wise Attrition Analysis</h2>
+    <div className="role-wise-grid">
+      {roleWiseStats.map((role, idx) => (
+        <div key={idx} className="role-card">
+          <div className="role-header">
+            <h4>{role.role}</h4>
+            <span className="role-count">{role.total_employees} employees</span>
+          </div>
+          <div className="role-metrics">
+            <div className="role-metric">
+              <span className="metric-label">Avg Attrition Rate</span>
+              <span className={`metric-value ${
+                role.avg_attrition_rate >= 50 ? 'high-risk' :
+                role.avg_attrition_rate >= 30 ? 'medium-risk' : 'low-risk'
+              }`}>
+                {role.avg_attrition_rate}%
+              </span>
+            </div>
+            <div className="role-metric">
+              <span className="metric-label">High Risk</span>
+              <span className="metric-value">
+                {role.high_risk_count} ({role.high_risk_percentage}%)
+              </span>
             </div>
           </div>
+          <div className="role-bar">
+            <div
+              className="role-bar-fill"
+              style={{
+                width: `${role.avg_attrition_rate}%`,
+                backgroundColor: role.avg_attrition_rate >= 50 ? COLORS.veryHighRisk :
+                               role.avg_attrition_rate >= 30 ? COLORS.highRisk :
+                               COLORS.mediumRisk
+              }}
+            ></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
+
+{/* UPDATED: Top Risk Section with Timeframe Selector */}
+<div className="section">
+  <div className="section-header-with-controls">
+    <h2 className="section-title">🚨 Top Risk Employees</h2>
+
+    <div className="timeframe-selector">
+      <label>Timeframe:</label>
+      <select
+        value={selectedTimeframe.start}
+        onChange={(e) => handleTimeframeChange('start', e.target.value)}
+        className="quarter-select"
+      >
+        {generateQuarterOptions().map(q => (
+          <option key={q} value={q}>{q}</option>
+        ))}
+      </select>
+      <span className="to-label">to</span>
+      <select
+        value={selectedTimeframe.end}
+        onChange={(e) => handleTimeframeChange('end', e.target.value)}
+        className="quarter-select"
+      >
+        {generateQuarterOptions().map(q => (
+          <option key={q} value={q}>{q}</option>
+        ))}
+      </select>
+    </div>
+  </div>
+
+  {timeframeTopRisk ? (
+    <>
+      <div className="timeframe-summary">
+        <span className="summary-icon">📅</span>
+        <p>
+          Showing employees most likely to leave between <strong>{timeframeTopRisk.timeframe.start}</strong> and <strong>{timeframeTopRisk.timeframe.end}</strong>
+          <span className="years-ahead"> ({timeframeTopRisk.timeframe.years_ahead} years ahead)</span>
+        </p>
+        <div className="timeframe-stats">
+          <span>High Risk: <strong>{timeframeTopRisk.summary.high_risk_count}</strong> employees</span>
+          <span>Avg Probability: <strong>{timeframeTopRisk.summary.avg_attrition_probability}%</strong></span>
+        </div>
+      </div>
+
+      <div className="risk-grid">
+        {timeframeTopRisk.top_risk_employees.map((emp, idx) => (
+          <div key={idx} className="risk-card" onClick={() => showEmployeeFactors(emp.employee_id)} style={{cursor: 'pointer'}}>
+            <div className="risk-rank">#{idx + 1}</div>
+            <div className="risk-card-content">
+              <strong className="employee-id">{emp.employee_id}</strong>
+              <span className="employee-role">{emp.role}</span>
+              <span className="employee-details">
+                Age: {emp.age} • {emp.work_experience}yr exp • {emp.time_at_current_role}yr in role
+              </span>
+            </div>
+            <div className="risk-percentage" style={{
+              backgroundColor: emp.attrition_probability >= 50 ? COLORS.veryHighRisk : COLORS.highRisk
+            }}>
+              {emp.attrition_probability.toFixed(1)}%
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
+  ) : (
+    <div className="risk-grid">
+      {uploadedAnalytics.top_risk.slice(0, 10).map((emp, idx) => (
+        <div key={idx} className="risk-card" onClick={() => showEmployeeFactors(emp.employee_id)} style={{cursor: 'pointer'}}>
+          <div className="risk-rank">#{idx + 1}</div>
+          <div className="risk-card-content">
+            <strong className="employee-id">{emp.employee_id}</strong>
+            <span className="employee-role">{emp.role}</span>
+            <span className="employee-details">Age: {emp.age} • {emp.work_experience}yr exp</span>
+          </div>
+          <div className="risk-percentage" style={{backgroundColor: emp.attrition_probability >= 50 ? COLORS.veryHighRisk : COLORS.highRisk}}>
+            {emp.attrition_probability.toFixed(1)}%
+          </div>
+        </div>
+      ))}
+    </div>
+  )}
+</div>
 
           {csvResults && (
             <>
