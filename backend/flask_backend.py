@@ -521,47 +521,6 @@ def health_check():
         'timestamp': datetime.now().isoformat()
     })
 
-
-@app.route('/api/predict/single', methods=['POST'])
-def predict_single_employee():
-    """
-    Predict attrition for a single employee
-
-    Request body:
-    {
-        "age": 28,
-        "time_at_current_role": 1.5,
-        "marital_status": "Single",
-        "role": "Software Engineer",
-        "work_experience": 3.0,
-        "wfh_available": 1,
-        "employee_name": "John Doe" (optional)
-    }
-    """
-    try:
-        data = request.json
-
-        # Validate required fields
-        required_fields = ['age', 'time_at_current_role', 'marital_status',
-                           'role', 'work_experience', 'wfh_available']
-
-        for field in required_fields:
-            if field not in data:
-                return jsonify({'error': f'Missing required field: {field}'}), 400
-
-        # Make prediction
-        result = predict_single(data)
-
-        # Add employee name if provided
-        if 'employee_name' in data:
-            result['employee_name'] = data['employee_name']
-
-        return jsonify(result)
-
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-
-
 @app.route('/api/predict/batch', methods=['POST'])
 def predict_batch_employees():
     """
@@ -801,7 +760,7 @@ def upload_csv():
 
 @app.route('/api/analytics/uploaded', methods=['GET'])
 def get_uploaded_analytics():
-    """Get analytics from last uploaded data"""
+    """Get analytics from uploaded CSV data"""
     global last_uploaded_data
 
     if last_uploaded_data is None:
@@ -810,72 +769,92 @@ def get_uploaded_analytics():
     try:
         df = pd.DataFrame(last_uploaded_data)
 
-        # Make predictions
-        df['marital_status_encoded'] = label_encoders['marital_status'].transform(df['marital_status'])
-        df['role_encoded'] = label_encoders['role'].transform(df['role'])
-        X = df[feature_names]
+        # Get predictions for all employees
+        employees_with_risk = []
 
-        probabilities = model.predict_proba(X)[:, 1] * 100
-        df['attrition_probability'] = probabilities
+        for idx, row in df.iterrows():
+            emp_data = row.to_dict()
+            pred = predict_single(emp_data)
 
-        # Get ALL employees with predictions for modal display
-        all_employees = df[['employee_id', 'age', 'role', 'work_experience', 'attrition_probability']].to_dict(
-            'records')
+            # Include dynamic factors in employee data
+            employee_info = {
+                'employee_id': emp_data.get('employee_id', f'EMP{idx}'),
+                'role': emp_data.get('role', 'N/A'),
+                'age': emp_data.get('age', 'N/A'),
+                'work_experience': emp_data.get('work_experience', 'N/A'),
+                'time_at_current_role': emp_data.get('time_at_current_role', 'N/A'),
+                'attrition_probability': pred['attrition_probability'],
+                'risk_level': pred['risk_level']
+            }
 
-        # High risk (>= 50%)
-        high_risk = [emp for emp in all_employees if emp['attrition_probability'] >= 50]
+            # Add any dynamic factors that exist
+            for col in df.columns:
+                if col not in ['employee_id', 'age', 'time_at_current_role', 'marital_status',
+                               'role', 'work_experience', 'wfh_available', 'attrition']:
+                    # Check if it's a numeric factor (0-10 scale)
+                    if pd.api.types.is_numeric_dtype(df[col]):
+                        col_min = df[col].min()
+                        col_max = df[col].max()
+                        if col_min >= 0 and col_max <= 10:
+                            employee_info[col] = round(float(emp_data.get(col, 0)), 1)
 
-        # Medium risk (30-50%)
-        medium_risk = [emp for emp in all_employees if 30 <= emp['attrition_probability'] < 50]
+            employees_with_risk.append(employee_info)
 
-        # Overall stats
-        analytics = {
-            'total_employees': len(df),
-            'overall_attrition_rate': round(probabilities.mean(), 2),
+        # Sort by risk
+        employees_with_risk.sort(key=lambda x: x['attrition_probability'], reverse=True)
+
+        # Get top risk employees
+        high_risk = [e for e in employees_with_risk if e['attrition_probability'] >= 50]
+        medium_risk = [e for e in employees_with_risk if 30 <= e['attrition_probability'] < 50]
+        top_10_risk = employees_with_risk[:10]
+
+        # Calculate department-wise stats
+        dept_stats = {}
+        for dept in df['role'].unique():
+            dept_employees = [e for e in employees_with_risk if e['role'] == dept]
+            if dept_employees:
+                dept_stats[dept] = {
+                    'count': len(dept_employees),
+                    'mean': round(np.mean([e['attrition_probability'] for e in dept_employees]), 2)
+                }
+
+        # Detect dynamic factors in the dataset
+        detected_factors = []
+        for col in df.columns:
+            if col not in ['employee_id', 'age', 'time_at_current_role', 'marital_status',
+                           'role', 'work_experience', 'wfh_available', 'attrition']:
+                if pd.api.types.is_numeric_dtype(df[col]):
+                    col_min = df[col].min()
+                    col_max = df[col].max()
+                    if col_min >= 0 and col_max <= 10:
+                        detected_factors.append({
+                            'name': col,
+                            'display_name': col.replace('_', ' ').title(),
+                            'avg': round(float(df[col].mean()), 2),
+                            'min': float(col_min),
+                            'max': float(col_max)
+                        })
+
+        return jsonify({
+            'total_employees': len(employees_with_risk),
             'high_risk_count': len(high_risk),
             'medium_risk_count': len(medium_risk),
-            'low_risk_count': int((probabilities < 30).sum()),
-
-            # Full lists for modal
-            'high_risk_employees': sorted(high_risk, key=lambda x: x['attrition_probability'], reverse=True),
-            'medium_risk_employees': sorted(medium_risk, key=lambda x: x['attrition_probability'], reverse=True),
-
-            # By role
-            'by_role': df.groupby('role')['attrition_probability'].agg(['mean', 'count']).round(2).to_dict('index'),
-
-            # By department (infer from role)
-            'by_department': {},
-
-            # Top risk employees (for existing display)
-            'top_risk': df.nlargest(10, 'attrition_probability')[
-                ['employee_id', 'age', 'role', 'work_experience', 'attrition_probability']
-            ].to_dict('records')
-        }
-
-        # Categorize into departments
-        engineering_roles = ['Junior Developer', 'Software Engineer', 'Senior Software Engineer',
-                             'Tech Lead', 'Engineering Manager', 'DevOps Engineer', 'Architect', 'Trainee Developer']
-        qa_roles = ['QA Engineer', 'Senior QA Engineer']
-        business_roles = ['Business Analyst', 'Product Manager', 'Director']
-
-        df['department'] = df['role'].apply(lambda x:
-                                            'Engineering' if x in engineering_roles else
-                                            'QA' if x in qa_roles else
-                                            'Business' if x in business_roles else 'Other'
-                                            )
-
-        analytics['by_department'] = df.groupby('department')['attrition_probability'].agg(['mean', 'count']).round(
-            2).to_dict('index')
-
-        return jsonify(analytics)
+            'overall_attrition_rate': round(np.mean([e['attrition_probability'] for e in employees_with_risk]), 2),
+            'high_risk_employees': high_risk,
+            'medium_risk_employees': medium_risk,
+            'top_risk': top_10_risk,
+            'by_department': dept_stats,
+            'dynamic_factors': detected_factors  # NEW
+        })
 
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         return jsonify({'error': str(e)}), 500
-
 
 @app.route('/api/training/upload-dataset', methods=['POST'])
 def upload_training_dataset():
-    """Upload dataset for custom model training"""
+    """Upload dataset for custom model training with dynamic factor detection"""
     try:
         if 'file' not in request.files:
             return jsonify({'error': 'No file uploaded'}), 400
@@ -891,13 +870,37 @@ def upload_training_dataset():
         # Read CSV
         df = pd.read_csv(file)
 
-        # Validate required columns
-        required_cols = ['age', 'time_at_current_role', 'marital_status', 'role',
-                         'work_experience', 'wfh_available', 'attrition']
-        missing_cols = [col for col in required_cols if col not in df.columns]
+        # Core required columns
+        core_required_cols = ['employee_id', 'age', 'time_at_current_role', 'marital_status',
+                              'role', 'work_experience', 'wfh_available', 'attrition']
+        missing_cols = [col for col in core_required_cols if col not in df.columns]
 
         if missing_cols:
             return jsonify({'error': f'Missing required columns: {", ".join(missing_cols)}'}), 400
+
+        # Detect dynamic contributing factors
+        # Any numeric column (0-10 scale) that's not a core column is considered a factor
+        core_cols_set = set(core_required_cols)
+        all_cols = set(df.columns)
+
+        # Find dynamic factors
+        dynamic_factors = []
+        for col in all_cols - core_cols_set:
+            # Check if numeric and in reasonable range
+            if pd.api.types.is_numeric_dtype(df[col]):
+                col_min = df[col].min()
+                col_max = df[col].max()
+
+                # Assume factors are on 0-10 scale or similar
+                if col_min >= 0 and col_max <= 10:
+                    dynamic_factors.append({
+                        'name': col,
+                        'display_name': col.replace('_', ' ').title(),
+                        'min': float(col_min),
+                        'max': float(col_max),
+                        'avg': round(float(df[col].mean()), 2),
+                        'type': 'slider'  # For UI rendering
+                    })
 
         # Check minimum sample size
         MIN_SAMPLES = 100
@@ -952,15 +955,25 @@ def upload_training_dataset():
             'wfh_distribution': {
                 'has_wfh': int((df['wfh_available'] == 1).sum()),
                 'no_wfh': int((df['wfh_available'] == 0).sum())
-            }
+            },
+
+            # Dynamic factors stats
+            'dynamic_factors': dynamic_factors
         }
 
-        # Store in session (in production, use Redis or temp file)
+        # Store in session
         import pickle
-        import os
         temp_path = '/tmp/training_data.pkl'
+
+        # Store both dataframe and factor metadata
+        training_data = {
+            'dataframe': df,
+            'dynamic_factors': dynamic_factors,
+            'all_columns': list(df.columns)
+        }
+
         with open(temp_path, 'wb') as f:
-            pickle.dump(df, f)
+            pickle.dump(training_data, f)
 
         return jsonify({
             'success': True,
@@ -976,12 +989,12 @@ def upload_training_dataset():
 
 @app.route('/api/training/train-model', methods=['POST'])
 def train_custom_model():
-    """Train a custom model with uploaded data"""
+    """Train a custom model with dynamic factors"""
     try:
         from sklearn.model_selection import train_test_split, cross_val_score
         from sklearn.ensemble import RandomForestClassifier
         from sklearn.metrics import (classification_report, accuracy_score,
-                                     confusion_matrix, roc_auc_score, roc_curve)
+                                     confusion_matrix, roc_auc_score)
         from sklearn.preprocessing import LabelEncoder
         import pickle
 
@@ -991,9 +1004,12 @@ def train_custom_model():
             return jsonify({'error': 'No dataset found. Please upload data first.'}), 400
 
         with open(temp_path, 'rb') as f:
-            df = pickle.load(f)
+            training_data = pickle.load(f)
 
-        print(f"Training on {len(df)} samples...")
+        df = training_data['dataframe']
+        dynamic_factors = training_data['dynamic_factors']
+
+        print(f"Training on {len(df)} samples with {len(dynamic_factors)} dynamic factors...")
 
         # Prepare features
         df_model = df.copy()
@@ -1009,7 +1025,7 @@ def train_custom_model():
         df_model['role_encoded'] = le_role.fit_transform(df_model['role'])
         custom_label_encoders['role'] = le_role
 
-        # Select features
+        # Build feature list: core + dynamic factors
         custom_feature_names = [
             'age',
             'time_at_current_role',
@@ -1018,6 +1034,10 @@ def train_custom_model():
             'work_experience',
             'wfh_available'
         ]
+
+        # Add all dynamic factors
+        for factor in dynamic_factors:
+            custom_feature_names.append(factor['name'])
 
         X = df_model[custom_feature_names]
         y = df_model['attrition']
@@ -1056,14 +1076,9 @@ def train_custom_model():
         y_pred_proba = custom_model.predict_proba(X_test)[:, 1]
 
         accuracy = accuracy_score(y_test, y_pred)
-
-        # Confusion matrix
         cm = confusion_matrix(y_test, y_pred)
-
-        # Classification report
         report = classification_report(y_test, y_pred, output_dict=True)
 
-        # AUC score
         try:
             auc_score = roc_auc_score(y_test, y_pred_proba)
         except:
@@ -1081,11 +1096,12 @@ def train_custom_model():
             })
         feature_importance.sort(key=lambda x: x['importance'], reverse=True)
 
-        # Save custom model
+        # Save custom model with dynamic factors metadata
         custom_model_data = {
             'model': custom_model,
             'label_encoders': custom_label_encoders,
             'feature_names': custom_feature_names,
+            'dynamic_factors': dynamic_factors,  # Store factor metadata
             'metrics': {
                 'accuracy': accuracy,
                 'auc_roc': auc_score
@@ -1093,6 +1109,7 @@ def train_custom_model():
             'training_info': {
                 'samples': len(df),
                 'features': len(custom_feature_names),
+                'dynamic_factors_count': len(dynamic_factors),
                 'trained_at': datetime.now().isoformat()
             }
         }
@@ -1140,10 +1157,12 @@ def train_custom_model():
                     'total_samples': len(df),
                     'train_samples': len(X_train),
                     'test_samples': len(X_test),
-                    'features_used': len(custom_feature_names)
+                    'features_used': len(custom_feature_names),
+                    'dynamic_factors': len(dynamic_factors)
                 }
             },
             'model_path': custom_model_path,
+            'dynamic_factors': dynamic_factors,  # Return to frontend
             'warning': warning
         })
 
@@ -1263,10 +1282,14 @@ def list_custom_models():
         return jsonify({'error': str(e)}), 500
 
 
+# At the top of the file, after model loading
+current_dynamic_factors = []  # Global to track loaded model's factors
+
+
 @app.route('/api/training/load-model/<model_filename>', methods=['POST'])
 def load_custom_model(model_filename):
     """Load a custom model for predictions"""
-    global model, label_encoders, feature_names
+    global model, label_encoders, feature_names, current_dynamic_factors
 
     try:
         models_dir = '../models/custom'
@@ -1284,6 +1307,7 @@ def load_custom_model(model_filename):
         model = custom_model_data['model']
         label_encoders = custom_model_data['label_encoders']
         feature_names = custom_model_data['feature_names']
+        current_dynamic_factors = custom_model_data.get('dynamic_factors', [])
 
         return jsonify({
             'success': True,
@@ -1291,6 +1315,7 @@ def load_custom_model(model_filename):
             'model_info': {
                 'filename': model_filename,
                 'features': len(feature_names),
+                'dynamic_factors': current_dynamic_factors,
                 'metrics': custom_model_data.get('metrics', {})
             }
         })
@@ -1299,6 +1324,15 @@ def load_custom_model(model_filename):
         import traceback
         traceback.print_exc()
         return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/models/current-factors', methods=['GET'])
+def get_current_model_factors():
+    """Get dynamic factors for the currently loaded model"""
+    return jsonify({
+        'dynamic_factors': current_dynamic_factors,
+        'feature_names': feature_names
+    })
 
 
 @app.route('/api/analytics/role-wise-attrition', methods=['GET'])
@@ -1791,66 +1825,36 @@ def get_employee_factors(employee_id):
         return jsonify({'error': str(e)}), 500
 
 
-@app.route('/api/predict/single/factors', methods=['POST'])
-def predict_single_with_factors():
-    """Get prediction with factor breakdown for single employee"""
+@app.route('/api/predict/single', methods=['POST'])
+def predict_single_employee():
+    """Predict attrition for a single employee with dynamic factors"""
     try:
         data = request.json
 
-        # Validate required fields
-        required_fields = ['age', 'time_at_current_role', 'marital_status',
-                           'role', 'work_experience', 'wfh_available']
+        # Core required fields (always needed)
+        core_required = ['age', 'time_at_current_role', 'marital_status',
+                         'role', 'work_experience', 'wfh_available']
 
-        for field in required_fields:
+        for field in core_required:
             if field not in data:
                 return jsonify({'error': f'Missing required field: {field}'}), 400
 
-        # Calculate with factors
-        result = calculate_attrition_with_factors(data)
+        # Make prediction (will handle dynamic factors automatically)
+        result = predict_single(data)
 
-        # Format for frontend
-        factors_data = [
-            {
-                'name': 'Salary Gap',
-                'value': result['factors']['salary'],
-                'description': 'Underpaid' if data.get('salary_satisfaction', 0) < 0 else 'Well paid',
-                'color': '#ef4444' if result['factors']['salary'] > 15 else '#f59e0b'
-            },
-            {
-                'name': 'Economic Crisis',
-                'value': result['factors']['economic'],
-                'description': f"Impact: {data.get('economic_crisis_impact', 0)}/10",
-                'color': '#f97316'
-            },
-            {
-                'name': 'COVID Impact',
-                'value': result['factors']['covid'],
-                'description': f"Score: {data.get('covid_impact_score', 0)}/10",
-                'color': '#8b5cf6'
-            },
-            {
-                'name': 'Political Instability',
-                'value': result['factors']['political'],
-                'description': f"Concern: {data.get('political_stability_concern', 0)}/10",
-                'color': '#6366f1'
-            },
-            {
-                'name': 'Job Factors',
-                'value': result['factors']['job_factors'],
-                'description': 'Role, WFH, Age, etc.',
-                'color': '#3b82f6'
-            }
-        ]
+        # Add employee name if provided
+        if 'employee_name' in data:
+            result['employee_name'] = data['employee_name']
 
-        return jsonify({
-            'employee_data': data,
-            'attrition_probability': result['probability'],
-            'factors': factors_data
-        })
+        # Include which dynamic factors were used
+        result['dynamic_factors_used'] = current_dynamic_factors
+
+        return jsonify(result)
 
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         return jsonify({'error': str(e)}), 500
-
 
 @app.route('/api/insights/retention-strategies/<employee_id>', methods=['GET'])
 def get_retention_strategies(employee_id):

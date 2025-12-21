@@ -67,9 +67,13 @@ const [customModels, setCustomModels] = useState([]);
 const [currentModel, setCurrentModel] = useState(null);
 const [showModelManager, setShowModelManager] = useState(false);
 
+// Uploaded data dynamic factors
+const [uploadedDynamicFactors, setUploadedDynamicFactors] = useState([]);
+
 // Role-wise stats
 const [roleWiseStats, setRoleWiseStats] = useState(null);
-
+// Dynamic factors from loaded model
+const [modelDynamicFactors, setModelDynamicFactors] = useState([]);
 // Timeframe selector for top risk
 const [selectedTimeframe, setSelectedTimeframe] = useState({
   start: '2025-Q1',
@@ -116,6 +120,48 @@ const fetchTimeframeTopRisk = async (start, end) => {
     setTimeframeTopRisk(data);
   } catch (error) {
     console.error('Error fetching timeframe top risk:', error);
+  }
+};
+
+const handleLoadModel = async (filename) => {
+  if (!window.confirm(`Load model "${filename}"? This will replace the current model for predictions.`)) {
+    return;
+  }
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/training/load-model/${filename}`, {
+      method: 'POST'
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || 'Failed to load model');
+    }
+
+    alert(`✓ ${data.message}`);
+    setCurrentModel(data.model_info);
+    setModelDynamicFactors(data.model_info.dynamic_factors || []);  // NEW
+
+  } catch (error) {
+    console.error('Error loading model:', error);
+    alert('Error loading model: ' + error.message);
+  }
+};
+
+// Also fetch on initial load
+useEffect(() => {
+  fetchCustomModels();
+  fetchCurrentModelFactors();  // NEW
+}, []);
+
+const fetchCurrentModelFactors = async () => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/models/current-factors`);
+    const data = await response.json();
+    setModelDynamicFactors(data.dynamic_factors || []);
+  } catch (error) {
+    console.error('Error fetching model factors:', error);
   }
 };
 
@@ -402,30 +448,7 @@ const handleSaveModel = async () => {
   }
 };
 
-const handleLoadModel = async (filename) => {
-  if (!window.confirm(`Load model "${filename}"? This will replace the current model for predictions.`)) {
-    return;
-  }
 
-  try {
-    const response = await fetch(`${API_BASE_URL}/training/load-model/${filename}`, {
-      method: 'POST'
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.error || 'Failed to load model');
-    }
-
-    alert(`✓ ${data.message}`);
-    setCurrentModel(data.model_info);
-
-  } catch (error) {
-    console.error('Error loading model:', error);
-    alert('Error loading model: ' + error.message);
-  }
-};
 
 const handleDeleteModel = async (filename) => {
   if (!window.confirm(`Delete model "${filename}"? This cannot be undone.`)) {
@@ -456,17 +479,18 @@ useEffect(() => {
   fetchCustomModels();
 }, []);
 
-  const fetchUploadedAnalytics = async () => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/analytics/uploaded`);
-      const data = await response.json();
-      if (response.ok) {
-        setUploadedAnalytics(data);
-      }
-    } catch (error) {
-      console.error('Error fetching analytics:', error);
+const fetchUploadedAnalytics = async () => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/analytics/uploaded`);
+    const data = await response.json();
+    if (response.ok) {
+      setUploadedAnalytics(data);
+      setUploadedDynamicFactors(data.dynamic_factors || []);  // NEW
     }
-  };
+  } catch (error) {
+    console.error('Error fetching analytics:', error);
+  }
+};
 
   const showHighRiskEmployees = () => {
     if (!uploadedAnalytics) {
@@ -670,7 +694,6 @@ const handleEmployeeIdSearch = async (e) => {
   };
 
 const renderTraining = () => (
-
   <div className="training-container">
     <div className="training-header">
       <h1>🎓 Train Your Custom Model</h1>
@@ -722,6 +745,15 @@ const renderTraining = () => (
               <span className="note-icon">⚠️</span>
               <strong>Minimum 100 samples required</strong> for reliable training
             </div>
+
+            <div className="requirement-note" style={{marginTop: '1rem', borderLeftColor: '#3b82f6', background: '#eff6ff'}}>
+              <span className="note-icon">💡</span>
+              <strong>Optional: Add Contributing Factors</strong>
+              <p style={{margin: '0.5rem 0 0 0', fontSize: '0.9rem'}}>
+                Include any custom factors (e.g., floods, economic_impact, covid_score) as numeric columns (0-10 scale).
+                They will be auto-detected and used in training!
+              </p>
+            </div>
           </div>
 
           <input
@@ -766,6 +798,26 @@ const renderTraining = () => (
             <div className="metric-big-value">{trainingDemographics.will_stay}</div>
           </div>
         </div>
+
+        {/* NEW: Dynamic Factors Display */}
+        {trainingDemographics.dynamic_factors && trainingDemographics.dynamic_factors.length > 0 && (
+          <div className="dynamic-factors-detected">
+            <h3>🎯 Detected Contributing Factors ({trainingDemographics.dynamic_factors.length})</h3>
+            <p className="factors-hint">
+              These custom factors will be used to train the model and will be required when making predictions.
+            </p>
+            <div className="factors-grid">
+              {trainingDemographics.dynamic_factors.map((factor, idx) => (
+                <div key={idx} className="factor-badge">
+                  <strong>{factor.display_name}</strong>
+                  <span className="factor-stats">
+                    Avg: {factor.avg} | Range: {factor.min}-{factor.max}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         <div className="demo-grid">
           <div className="demo-card">
@@ -816,17 +868,17 @@ const renderTraining = () => (
 
     {trainingTab === 'results' && trainingMetrics && (
       <div className="results-section">
-            <div className="results-header">
-              <h2>✅ Training Complete!</h2>
-              <div className="header-actions">
-                <button onClick={handleSaveModel} className="btn-save">
-                  💾 Save Model
-                </button>
-                <button onClick={handleDownloadModel} className="btn-download">
-                  📥 Download
-                </button>
-              </div>
-            </div>
+        <div className="results-header">
+          <h2>✅ Training Complete!</h2>
+          <div className="header-actions">
+            <button onClick={handleSaveModel} className="btn-save">
+              💾 Save Model
+            </button>
+            <button onClick={handleDownloadModel} className="btn-download">
+              📥 Download
+            </button>
+          </div>
+        </div>
 
         <div className="metrics-grid">
           <div className="metric-card accuracy">
@@ -926,84 +978,99 @@ const renderTraining = () => (
             <div><strong>Total Samples:</strong> {trainingMetrics.training_data.total_samples}</div>
             <div><strong>Training Set:</strong> {trainingMetrics.training_data.train_samples}</div>
             <div><strong>Test Set:</strong> {trainingMetrics.training_data.test_samples}</div>
-            <div><strong>Features Used:</strong> {trainingMetrics.training_data.features_used}</div>
+            <div><strong>Core Features:</strong> 6</div>
+            <div><strong>Dynamic Factors:</strong> {trainingMetrics.training_data.dynamic_factors || 0}</div>
+            <div><strong>Total Features:</strong> {trainingMetrics.training_data.features_used}</div>
           </div>
+
+          {/* NEW: Show dynamic factors used */}
+          {trainingMetrics.dynamic_factors && trainingMetrics.dynamic_factors.length > 0 && (
+            <div className="dynamic-factors-used">
+              <h4>Dynamic Contributing Factors:</h4>
+              <div className="factors-tags">
+                {trainingMetrics.dynamic_factors.map((factor, idx) => (
+                  <span key={idx} className="factor-tag">
+                    {factor.display_name}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     )}
 
-{/* Add after all training tabs */}
-<div className="model-manager-section">
-  <div className="manager-header">
-    <h2>📦 Your Trained Models</h2>
-    <button onClick={fetchCustomModels} className="btn-refresh">
-      🔄 Refresh
-    </button>
-  </div>
+    {/* Model Manager Section */}
+    <div className="model-manager-section">
+      <div className="manager-header">
+        <h2>📦 Your Trained Models</h2>
+        <button onClick={fetchCustomModels} className="btn-refresh">
+          🔄 Refresh
+        </button>
+      </div>
 
-  {customModels.length === 0 ? (
-    <div className="empty-state">
-      <p>No custom models saved yet. Train a model and save it to see it here.</p>
-    </div>
-  ) : (
-    <div className="models-grid">
-      {customModels.map((model, idx) => (
-        <div key={idx} className="model-card">
-          <div className="model-header">
-            <h3>{model.model_name}</h3>
-            <span className="model-date">
-              {new Date(model.saved_at).toLocaleDateString()}
-            </span>
-          </div>
-
-          <div className="model-stats">
-            <div className="stat">
-              <span className="stat-label">Accuracy</span>
-              <span className="stat-value">
-                {model.metrics?.accuracy ? (model.metrics.accuracy * 100).toFixed(1) : 'N/A'}%
-              </span>
-            </div>
-            <div className="stat">
-              <span className="stat-label">AUC-ROC</span>
-              <span className="stat-value">
-                {model.metrics?.auc_roc ? (model.metrics.auc_roc * 100).toFixed(1) : 'N/A'}%
-              </span>
-            </div>
-            <div className="stat">
-              <span className="stat-label">Samples</span>
-              <span className="stat-value">
-                {model.training_info?.samples || 'N/A'}
-              </span>
-            </div>
-            <div className="stat">
-              <span className="stat-label">Size</span>
-              <span className="stat-value">{model.file_size_mb} MB</span>
-            </div>
-          </div>
-
-          <div className="model-actions">
-            <button
-              onClick={() => handleLoadModel(model.filename)}
-              className="btn-load"
-            >
-              ✓ Use This Model
-            </button>
-            <button
-              onClick={() => handleDeleteModel(model.filename)}
-              className="btn-delete"
-            >
-              🗑️
-            </button>
-          </div>
+      {customModels.length === 0 ? (
+        <div className="empty-state">
+          <p>No custom models saved yet. Train a model and save it to see it here.</p>
         </div>
-      ))}
+      ) : (
+        <div className="models-grid">
+          {customModels.map((model, idx) => (
+            <div key={idx} className="model-card">
+              <div className="model-header">
+                <h3>{model.model_name}</h3>
+                <span className="model-date">
+                  {new Date(model.saved_at).toLocaleDateString()}
+                </span>
+              </div>
+
+              <div className="model-stats">
+                <div className="stat">
+                  <span className="stat-label">Accuracy</span>
+                  <span className="stat-value">
+                    {model.metrics?.accuracy ? (model.metrics.accuracy * 100).toFixed(1) : 'N/A'}%
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="stat-label">AUC-ROC</span>
+                  <span className="stat-value">
+                    {model.metrics?.auc_roc ? (model.metrics.auc_roc * 100).toFixed(1) : 'N/A'}%
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="stat-label">Samples</span>
+                  <span className="stat-value">
+                    {model.training_info?.samples || 'N/A'}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="stat-label">Size</span>
+                  <span className="stat-value">{model.file_size_mb} MB</span>
+                </div>
+              </div>
+
+              <div className="model-actions">
+                <button
+                  onClick={() => handleLoadModel(model.filename)}
+                  className="btn-load"
+                >
+                  ✓ Use This Model
+                </button>
+                <button
+                  onClick={() => handleDeleteModel(model.filename)}
+                  className="btn-delete"
+                >
+                  🗑️
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
-  )}
-</div>
   </div>
 );
 
-  // Render functions continue on next file...
   const renderHome = () => (
     <div className="home-container">
       {!uploadedAnalytics && (
@@ -1074,6 +1141,51 @@ const renderTraining = () => (
               <p className="metric-desc">Uploaded data</p>
             </div>
           </div>
+          {uploadedDynamicFactors && uploadedDynamicFactors.length > 0 && (
+  <div className="section">
+    <h2 className="section-title">📊 Contributing Factors Overview</h2>
+    <p className="section-subtitle">
+      These custom factors are influencing employee attrition in your organization
+    </p>
+    <div className="factors-overview-grid">
+      {uploadedDynamicFactors.map((factor, idx) => (
+        <div key={idx} className="factor-overview-card">
+          <div className="factor-icon-large">
+            {factor.name.includes('covid') || factor.name.includes('health') ? '🦠' :
+             factor.name.includes('economic') || factor.name.includes('salary') ? '💰' :
+             factor.name.includes('flood') || factor.name.includes('disaster') ? '🌊' :
+             factor.name.includes('political') || factor.name.includes('crisis') ? '🏛️' :
+             factor.name.includes('commute') || factor.name.includes('travel') ? '🚗' :
+             factor.name.includes('market') || factor.name.includes('industry') ? '📈' :
+             '📊'}
+          </div>
+          <h4>{factor.display_name}</h4>
+          <div className="factor-avg-display">
+            <span className="avg-label">Average Impact</span>
+            <div className="avg-value-container">
+              <span className="avg-value">{factor.avg}</span>
+              <span className="avg-scale">/10</span>
+            </div>
+          </div>
+          <div className="factor-range">
+            Range: {factor.min} - {factor.max}
+          </div>
+          <div className="factor-severity-bar">
+            <div
+              className="factor-severity-fill"
+              style={{
+                width: `${(factor.avg / 10) * 100}%`,
+                backgroundColor: factor.avg >= 7 ? COLORS.veryHighRisk :
+                               factor.avg >= 5 ? COLORS.warning :
+                               COLORS.success
+              }}
+            ></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
 
           {/* NEW: Role-wise Attrition Section */}
 {roleWiseStats && (
@@ -1163,25 +1275,79 @@ const renderTraining = () => (
         </div>
       </div>
 
-      <div className="risk-grid">
-        {timeframeTopRisk.top_risk_employees.map((emp, idx) => (
-          <div key={idx} className="risk-card" onClick={() => showEmployeeFactors(emp.employee_id)} style={{cursor: 'pointer'}}>
-            <div className="risk-rank">#{idx + 1}</div>
-            <div className="risk-card-content">
-              <strong className="employee-id">{emp.employee_id}</strong>
-              <span className="employee-role">{emp.role}</span>
-              <span className="employee-details">
-                Age: {emp.age} • {emp.work_experience}yr exp • {emp.time_at_current_role}yr in role
-              </span>
+<div className="risk-grid">
+  {timeframeTopRisk ? (
+    timeframeTopRisk.top_risk_employees.map((emp, idx) => (
+      <div key={idx} className="risk-card" onClick={() => showEmployeeFactors(emp.employee_id)} style={{cursor: 'pointer'}}>
+        <div className="risk-rank">#{idx + 1}</div>
+        <div className="risk-card-content">
+          <strong className="employee-id">{emp.employee_id}</strong>
+          <span className="employee-role">{emp.role}</span>
+          <span className="employee-details">
+            Age: {emp.age} • {emp.work_experience}yr exp • {emp.time_at_current_role}yr in role
+          </span>
+
+          {/* NEW: Show top 2 dynamic factors */}
+          {uploadedDynamicFactors && uploadedDynamicFactors.length > 0 && (
+            <div className="employee-factors-preview">
+              {uploadedDynamicFactors.slice(0, 2).map((factor, fidx) => (
+                emp[factor.name] !== undefined && (
+                  <div key={fidx} className="factor-mini">
+                    <span className="factor-mini-name">{factor.display_name}:</span>
+                    <span className={`factor-mini-value ${
+                      emp[factor.name] >= 7 ? 'high' :
+                      emp[factor.name] >= 5 ? 'medium' : 'low'
+                    }`}>
+                      {emp[factor.name]}/10
+                    </span>
+                  </div>
+                )
+              ))}
             </div>
-            <div className="risk-percentage" style={{
-              backgroundColor: emp.attrition_probability >= 50 ? COLORS.veryHighRisk : COLORS.highRisk
-            }}>
-              {emp.attrition_probability.toFixed(1)}%
-            </div>
-          </div>
-        ))}
+          )}
+        </div>
+        <div className="risk-percentage" style={{
+          backgroundColor: emp.attrition_probability >= 50 ? COLORS.veryHighRisk : COLORS.highRisk
+        }}>
+          {emp.attrition_probability.toFixed(1)}%
+        </div>
       </div>
+    ))
+  ) : (
+    uploadedAnalytics.top_risk.slice(0, 10).map((emp, idx) => (
+      <div key={idx} className="risk-card" onClick={() => showEmployeeFactors(emp.employee_id)} style={{cursor: 'pointer'}}>
+        <div className="risk-rank">#{idx + 1}</div>
+        <div className="risk-card-content">
+          <strong className="employee-id">{emp.employee_id}</strong>
+          <span className="employee-role">{emp.role}</span>
+          <span className="employee-details">Age: {emp.age} • {emp.work_experience}yr exp</span>
+
+          {/* NEW: Show top 2 dynamic factors */}
+          {uploadedDynamicFactors && uploadedDynamicFactors.length > 0 && (
+            <div className="employee-factors-preview">
+              {uploadedDynamicFactors.slice(0, 2).map((factor, fidx) => (
+                emp[factor.name] !== undefined && (
+                  <div key={fidx} className="factor-mini">
+                    <span className="factor-mini-name">{factor.display_name}:</span>
+                    <span className={`factor-mini-value ${
+                      emp[factor.name] >= 7 ? 'high' :
+                      emp[factor.name] >= 5 ? 'medium' : 'low'
+                    }`}>
+                      {emp[factor.name]}/10
+                    </span>
+                  </div>
+                )
+              ))}
+            </div>
+          )}
+        </div>
+        <div className="risk-percentage" style={{backgroundColor: emp.attrition_probability >= 50 ? COLORS.veryHighRisk : COLORS.highRisk}}>
+          {emp.attrition_probability.toFixed(1)}%
+        </div>
+      </div>
+    ))
+  )}
+</div>
     </>
   ) : (
     <div className="risk-grid">
@@ -1439,6 +1605,47 @@ const renderTraining = () => (
                     <label>Time at Current Role (years) *</label>
                     <input type="number" step="0.1" value={singleEmployee.time_at_current_role} onChange={(e) => setSingleEmployee({...singleEmployee, time_at_current_role: parseFloat(e.target.value)})} min="0" max="20" required />
                   </div>
+                        {modelDynamicFactors && modelDynamicFactors.length > 0 && (
+        <div className="dynamic-factors-section">
+          <h4>📊 Contributing Factors</h4>
+          <p className="form-help">
+            These factors were defined in your training dataset.
+            Rate each factor on a scale of 0-10 based on how it affects this employee.
+          </p>
+
+          <div className="form-grid">
+            {modelDynamicFactors.map((factor, idx) => (
+              <div key={idx} className="form-group">
+                <label>
+                  {factor.display_name}
+                  <span className="label-hint">
+                    (0-10: {factor.name.includes('impact') || factor.name.includes('concern')
+                      ? 'Higher = More Impact'
+                      : 'Higher = Better'})
+                  </span>
+                </label>
+                <div className="slider-container">
+                  <input
+                    type="range"
+                    min="0"
+                    max="10"
+                    step="0.5"
+                    value={singleEmployee[factor.name] || 5}
+                    onChange={(e) => setSingleEmployee({
+                      ...singleEmployee,
+                      [factor.name]: parseFloat(e.target.value)
+                    })}
+                    className="factor-slider"
+                  />
+                  <span className="slider-value">
+                    {singleEmployee[factor.name] || 5}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 <div className="form-group">
                     <label>WFH Available *</label>
                     <select
@@ -2166,7 +2373,7 @@ const renderInsights = () => (
 );
   const renderReports = () => (<div className="reports-container"><h2>Reports</h2><p>Coming soon - Export and detailed reports</p></div>);
 
-  return (
+return (
     <div className="App">
       <div className="sidebar">
         <div className="logo"><h2>WSM</h2><p>Workforce Strategy Model</p></div>
@@ -2179,19 +2386,18 @@ const renderInsights = () => (
         </nav>
       </div>
 
-
       <div className="main-content">
         <header className="top-header">
           <h1>Employee Turnover Prediction</h1>
           <div className="header-actions">
             <button className="btn-header">⚙️ Settings</button>
             <button className="btn-header">👤 Profile</button>
-                      <div className="current-model-indicator">
-      <span className="model-icon">🤖</span>
-      <span className="model-text">
-        Model: {currentModel ? currentModel.filename : 'Default'}
-      </span>
-    </div>
+            <div className="current-model-indicator">
+              <span className="model-icon">🤖</span>
+              <span className="model-text">
+                Model: {currentModel ? currentModel.filename : 'Default'}
+              </span>
+            </div>
           </div>
         </header>
         <div className="content-area">
